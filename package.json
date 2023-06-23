@@ -1,0 +1,53 @@
+{
+  "name": "next-js-boilerplate",
+  "version": "0.0.7.12",
+  "loyalty-version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@sentry/nextjs": "^7.56.0",
+    "@types/node": "18.16.0",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0",
+    "antd": "^5.4.6",
+    "axios": "^1.3.6",
+    "change-object-case": "^0.2.1",
+    "country-state-city": "^3.1.4",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.1",
+    "hex-to-rgba": "^2.0.1",
+    "html5-qrcode": "^2.3.8",
+    "invert-color": "^2.0.0",
+    "jsonapi-serializer": "^3.6.7",
+    "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
+    "lottie-react": "^2.4.0",
+    "luxon": "^3.3.0",
+    "next": "13.3.1",
+    "next-auth": "^4.22.1",
+    "pluralize": "^8.0.0",
+    "react": "18.2.0",
+    "react-bottom-scroll-listener": "^5.1.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
+    "styled-components": "^5.3.10",
+    "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/lodash": "^4.14.195",
+    "@types/luxon": "^3.3.0",
+    "@types/pluralize": "^0.0.29",
+    "@types/styled-components": "^5.1.26"
+  }
+}

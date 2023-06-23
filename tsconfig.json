@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    
+    "paths": {
+      // Global paths
+      "@app_types/*": ["./types/*"],
+      "@styles/*": ["./styles/*"],
+      "@api/*": ["./pages/api/*"],
+      "@public/*": ["./public/*"],
+
+      // App paths
+      "@app/*": ["./loyalty/*"],
+      "@config/*": ["./loyalty/config/*"],
+      "@app_comps/*": ["./loyalty/components/*"],
+      "@app_pages/*": ["./loyalty/pages/*"],
+      
+      // Core paths
+      "@core/*": ["./core/*"],
+      "@interfaces/*": ["./core/types/*"],
+      "@services/*": ["./core/services/*"],
+      "@utils/*": ["./core/utils/*"],
+      "@styled_comps/*": ["./core/components/styled/*"],
+      "@antd_comps/*": ["./core/components/antd/*"],
+      "@base_comps/*": ["./core/components/base/*"],
+    }
+  },
+  "include": [
+    "next-env.d.ts", 
+    "**/*.ts", 
+    "**/*.tsx", 
+    "types/**/*.ts", 
+    "core/types/**/*.ts", 
+    "pages/api/user/organizations/[slug].ts", 
+    "next.config.js",
+  ],
+  "exclude": ["node_modules"]
+}
