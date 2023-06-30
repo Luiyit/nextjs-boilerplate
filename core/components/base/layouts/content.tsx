@@ -9,18 +9,19 @@ import { useTheme } from '@core/providers/theme';
 interface ContentProps extends ComponentProps{
   headerHidden?: boolean;
   footerHidden?: boolean;
+  disableDarkMode?: boolean;
 }
 
-const Content: React.FC<ContentProps> = ({ children, ...rest }) => {
+const Content: React.FC<ContentProps> = ({ children, disableDarkMode, ...rest }) => {
   const contentStyle = useMemo(() => generateContentStyle(rest), [rest])
   const { dark } = useTheme();
 
   return (
     <React.Fragment>
-      <AntContent className={`ant-layout-content-${dark ? 'dark':'light'}`} style={contentStyle} >
-        <Container { ...rest } >
-          { children }
-        </Container>
+      <AntContent className={`ant-layout-content-${dark && !disableDarkMode ? 'dark':'light'} ${disableDarkMode ? 'dark-mode-disabled':''}`} style={contentStyle} >
+        {/* <Container { ...rest } > */}
+        { children }
+        {/* </Container> */}
       </AntContent>
     </React.Fragment>
   )

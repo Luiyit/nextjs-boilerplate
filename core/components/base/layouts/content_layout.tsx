@@ -25,20 +25,25 @@ const ContentLayout: React.FC<ContentLayoutProps> = ({ children, headerMenu, pro
   
   return (
     <React.Fragment>
-      <ContentLayoutStyle />
-      <Layout className={`ant-full-content-template`}>
+      <ContentLayoutStyle/>
+      <Layout className={`ant-full-content-template ${!!lc.header.fixed ? 'fixed-header' : ''}`}>
         {!hideHeader && (
           <Header 
             menuItems={ menuItems } 
             showLogo 
             profileMenuItems={profileMenuItems}
             useContainer={lc.header.useContainer}
+            disableDarkMode={lc.header.disableDarkMode}
           />
         )}
-        <Content headerHidden={hideHeader} footerHidden={hideFooter} >
+        <Content 
+          headerHidden={hideHeader} 
+          footerHidden={hideFooter} 
+          disableDarkMode={lc.contentLayout.disableDarkMode}
+        >
           { children }
         </Content>
-        {!hideFooter && <Footer />}
+        {!hideFooter && <Footer useContainer={lc.header.useContainer} />}
       </Layout>
     </React.Fragment>
 

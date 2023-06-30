@@ -22,7 +22,7 @@ const Avatar = ({ disabled, size = 35, displayName=true, menuItems }: Props) => 
   const AvatarContainer = menuItems?.length ? Dropdown : Div
 
   return (
-    <AvatarContainer menu={{ items: menuItems }} disabled={disabled}>
+    <AvatarContainer menu={{ items: menuItems, style: {} }} disabled={disabled}>
       <Flex onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.preventDefault()} alignItems="center" >
         {displayName && <Text padding='0 5px'>{ user.name }</Text>}
         {user.image && <AntAvatar size={size} src={<Image src={user.image} alt="avatar" width={size as number} height={size as number} />} /> }

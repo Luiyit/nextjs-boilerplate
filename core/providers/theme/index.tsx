@@ -1,15 +1,16 @@
 import React, { FC, useContext, useState } from 'react';
 
 import { ComponentProps } from '@interfaces/util'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, GlobalToken } from 'antd'
 import antdTheme from '@app/config/antd_theme'
 import { theme } from 'antd'
-const { defaultAlgorithm, darkAlgorithm } = theme;
+const { defaultAlgorithm, darkAlgorithm, useToken } = theme;
 
 // Provider value type
 export type ProviderValue = {
   dark: boolean;
   setDark: (dark: boolean) => void;
+  token: GlobalToken;
 }
 
 export const Context = React.createContext({} as ProviderValue);
@@ -21,11 +22,13 @@ interface Props extends ComponentProps {
 }
 
 const InternalThemeProvider = ({ children, dark, setDark }: Props ) => {
+  const { token } = useToken();
   
   // Provider value
   const value: ProviderValue = {
     dark,
     setDark,
+    token,
   };
 
   return (
@@ -35,14 +38,19 @@ const InternalThemeProvider = ({ children, dark, setDark }: Props ) => {
   );
 };
 
-const AntdThemeProvider: FC<ComponentProps> = ({ children }) => {
-  const [dark, setDark] = useState(true);
+interface AntdThemeProviderProps extends ComponentProps {
+  disableDarkMode?: boolean;
+}
+
+const AntdThemeProvider: FC<AntdThemeProviderProps> = ({ children, disableDarkMode }) => {
+  const [dark, setDark] = useState(true)
+  const darkTheme = dark && !disableDarkMode
 
   return (
     <ConfigProvider
       theme={{
         ...antdTheme,
-        algorithm: dark ? darkAlgorithm : defaultAlgorithm,
+        algorithm: darkTheme ? darkAlgorithm : defaultAlgorithm,
       }}
     >
       <InternalThemeProvider setDark={setDark} dark={dark}>

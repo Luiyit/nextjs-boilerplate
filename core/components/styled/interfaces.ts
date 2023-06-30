@@ -227,6 +227,7 @@ export interface TextI extends
   MarginProps, 
   PaddingProps, 
   BorderOutlineProps,
+  DimensionProps,
   TextFontProps {};
 
 // export interface TextHTMLI extends 
@@ -249,6 +250,8 @@ export interface DivI extends
 
   export interface GridI extends 
     BaseProps,
+    DimensionProps,
+    OtherProps,
     gridProps {};
 
   // React.ButtonHTMLAttributes<HTMLButtonElement>,

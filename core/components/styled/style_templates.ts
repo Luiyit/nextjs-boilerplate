@@ -20,7 +20,7 @@ const paddingStyle = (props: propsTypes.PaddingProps) => (`
 const textFontStyle = (props: propsTypes.TextFontProps) => (`
   ${props.fontSize && `font-size: ${props.fontSize};` || ''} 
   ${props.fontWeight && `font-weight: ${props.fontWeight};` || ''} 
-${props.color && `color: ${props.color};` || ''} 
+  ${props.color && `color: ${props.color};` || ''} 
   ${props.textAlign && `text-align: ${props.textAlign};` || ''} 
   ${props.lineHeight && `line-height: ${props.lineHeight};` || ''}
   ${props.letterSpacing && `letter-spacing: ${props.letterSpacing};` || ''} 

@@ -6,6 +6,7 @@ import {
   paddingStyle,
   textFontStyle,
   borderOutlineStyle,
+  dimensionStyle,
 } from '@styled_comps/style_templates';
 
 const Text = styled.p.attrs((props: TextI) => { return props })`
@@ -13,6 +14,7 @@ const Text = styled.p.attrs((props: TextI) => { return props })`
   ${marginStyle};
   ${paddingStyle};
   ${borderOutlineStyle};
+  ${dimensionStyle};
   ${({fontSize, lineHeight}) => 
     (lineHeight && `line-height: ${lineHeight};`) || 
     (fontSize && `line-height: calc(${fontSize} * 1.4);`) || 

@@ -45,6 +45,8 @@ const Grid = styled.div.attrs((props: GridI) => {
   };
 })`
   display: grid;
+  ${dimensionStyle}
+  ${otherStyle}
   ${gridStyle}
 `
 

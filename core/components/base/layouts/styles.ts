@@ -1,9 +1,7 @@
 import lc from '@app/config/layout';
 
 const headerStyle: React.CSSProperties = {
-  height: lc.header.heightInPx,
-  lineHeight: 'initial',
-  paddingInline: 0,
+  
 };
 
 const useFooter = lc.footer.useFooterWithSider;
@@ -34,8 +32,10 @@ const siderStyle: React.CSSProperties = {
 
 const footerStyle: React.CSSProperties = {
   height: lc.footer.heightInPx,
-  padding: 0,
   lineHeight: lc.footer.heightInPx,
+  padding: 0,
+  color: 'white',
+  background: '#000',
 };
 
 export { 
