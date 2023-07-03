@@ -3,11 +3,11 @@ import { Col, Layout, Row } from 'antd';
 import { ComponentProps } from '@interfaces/util'
 import { AuthLayoutStyle, AuthContentImage } from './styled'
 
-interface ContentLayoutProps extends ComponentProps{
+interface AuthLayoutProps extends ComponentProps{
   imageUrl?: string
 }
 
-const ContentLayout: React.FC<ContentLayoutProps> = ({ children, imageUrl }) => {
+const AuthLayout: React.FC<AuthLayoutProps> = ({ children, imageUrl }) => {
     
   return (
     <React.Fragment>
@@ -30,4 +30,4 @@ const ContentLayout: React.FC<ContentLayoutProps> = ({ children, imageUrl }) => 
   )
 }
 
-export default ContentLayout;
+export default AuthLayout;

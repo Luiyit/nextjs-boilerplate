@@ -17,6 +17,7 @@
     
     "paths": {
       // Global paths
+      "@root/*": ["./*"],
       "@app_types/*": ["./types/*"],
       "@styles/*": ["./styles/*"],
       "@api/*": ["./pages/api/*"],

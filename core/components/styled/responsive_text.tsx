@@ -12,10 +12,11 @@ export interface ResponsiveTextI extends TextI {
   lg?: string
   xl?: string
   xxl?: string
-  as?: string
 }
 
 const Text = styled(BaseText).attrs((props: ResponsiveTextI) => props)`
+  font-size: ${({ xs }) => xs};
+
   @media (min-width: ${bp.xs}) {
     ${({ xs }) => xs && `font-size: ${xs};`}
   }
@@ -40,7 +41,9 @@ const Text = styled(BaseText).attrs((props: ResponsiveTextI) => props)`
     ${({ xxl }) => xxl && `font-size: ${xxl};`}
   }
 `
-interface Props extends ResponsiveTextI, ComponentProps {}
+interface Props extends ResponsiveTextI, ComponentProps {
+  // as?: string
+}
 
 const ResponsiveText: React.FC<Props> = ({ children, ...rest}) => {
   return (

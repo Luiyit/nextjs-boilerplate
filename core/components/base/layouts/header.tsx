@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Switch } from 'antd';
+import { Layout } from 'antd';
 const { Header: AntHeader } = Layout;
 import { ComponentProps } from '@interfaces/util'
-import { headerStyle } from './styles'
 import Menu from '@base_comps/menu'
 import lc from '@app/config/layout';
-import brand from '@app/config/brand';
-import { Div, Flex } from '@styled_comps/blocks';
+import { Div } from '@styled_comps/blocks';
 import { displayTypes, alignTypes } from '@styled_comps/interfaces';
-import Image from 'next/image'
 import Link from 'next/link'
 import type { MenuProps as AntMenuProps } from 'antd';
 
@@ -28,18 +25,16 @@ interface HeaderProps extends ComponentProps{
   menuTheme?: AntMenuProps['theme'],
   useContainer?: boolean,
   disableDarkMode?: boolean;
+  logo: React.ReactNode
+  favIcon: React.ReactNode
+  fixed?: boolean
 }
 
-const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, showLogo, menuTheme, useContainer, disableDarkMode }) => {
-  const [opacity, setOpacity] = useState<number>(lc.header.fixed.baseOpacity)
+const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, showLogo, menuTheme, useContainer, disableDarkMode, logo, favIcon, fixed }) => {
+  const baseOpacity = lc.header.fixed?.baseOpacity || 1;
+  const [opacity, setOpacity] = useState<number>(baseOpacity)
   const opacityRef = React.useRef(opacity);
   const HeaderContainer = useContainer ? Container : Div;
-
-  const logo = brand.renderLogo ? brand.renderLogo({ className: "main-logo" }) : <Image className="main-logo" src={brand.logo} alt={brand.name} height={lc.header.height * 0.75} />
-
-  const favIcon = brand.renderFav ? 
-    brand.renderFav(lc.header.height - 10, { className: "main-fav-logo" }) : 
-    <Image className="main-fav-logo" src={brand.favLogo} alt={brand.name} height={lc.header.height - 10} />
 
   const { dark } = useTheme();
   const darkTheme = dark && !disableDarkMode
@@ -62,14 +57,14 @@ const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, showLogo, 
   }
   
   useEffect(() => { 
-    if (!lc.header.fixed) return;
+    if (!fixed) return;
 
     window.addEventListener('scroll', listenScrollEvent)
     return () => window.removeEventListener('scroll', listenScrollEvent)
   }, [])
 
   const dynamicStyle = {
-    ...(!!lc.header.fixed ? { backgroundColor: hexToRgba(lc.header.fixed.bgColor, opacity) } : {})
+    ...(fixed ? { backgroundColor: hexToRgba(lc.header.fixed.bgColor, opacity) } : {})
   }
 
   return (

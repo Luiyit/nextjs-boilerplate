@@ -5,11 +5,17 @@ import Sider from '@base_comps/layouts/sider'
 import Footer from '@base_comps/layouts/footer'
 import Content from '@base_comps/layouts/sider_content'
 import { ComponentProps } from '@interfaces/util'
-import { SiderLayoutStyle } from './styled';
+import SiderLayoutStyle from './style/sider_style';
 import { generateMenu } from '@core/utils/menu'
+import { getBrandAssets } from '@core/utils/header'
 import { MenuType, MenuGeneratorType } from "@core/types/menu";
 import { useSession } from '@core/providers/session';
 import lc from '@app/config/layout';
+import { theme } from 'antd'
+const { useToken } = theme;
+import Image from 'next/image'
+import brand from '@app/config/brand';
+import { useTheme } from '@root/core/providers/theme';
 
 interface SiderLayoutProps extends ComponentProps{
   template?: 'full-vav' | 'full-sider'
@@ -23,24 +29,36 @@ interface SiderLayoutProps extends ComponentProps{
 const SiderLayout: React.FC<SiderLayoutProps> = ({ children, siderMenu, headerMenu, profileMenu, template = 'full-vav', hideHeader, hideFooter }) => {
 
   const useFullSider = template === 'full-sider'
+  const { dark } = useTheme()
   const { user } = useSession()
+  const { token } = useToken()
+  
   const siderMenuItems = generateMenu(siderMenu, user);
   const headerMenuItems = generateMenu(headerMenu, user);
   const profileMenuItems = generateMenu(profileMenu, user);
+  
+  const { logo, favIcon} = getBrandAssets("sider", dark)
 
   return (
     <React.Fragment>
-      <SiderLayoutStyle />
+      <SiderLayoutStyle colorText={token.colorText} />
       <Layout className={`ant-${template}-template`}>
         {!useFullSider && !hideHeader && (
           <Header 
             menuItems={headerMenuItems} 
             profileMenuItems={profileMenuItems} 
             useContainer={lc.header.useContainerOnSider} 
+            logo={logo}
+            favIcon={favIcon}
             showLogo 
           />
         )}
-        {useFullSider && <Sider menuItems={siderMenuItems} showLogo />}
+        {useFullSider && <Sider 
+          menuItems={siderMenuItems} 
+          logo={logo}
+          favIcon={favIcon}
+          showLogo 
+        />}
 
         <Layout>
           {useFullSider && !hideHeader && (
@@ -48,9 +66,15 @@ const SiderLayout: React.FC<SiderLayoutProps> = ({ children, siderMenu, headerMe
               menuItems={headerMenuItems} 
               profileMenuItems={profileMenuItems} 
               useContainer={lc.header.useContainerOnSider} 
+              logo={logo}
+              favIcon={favIcon}
             />
           )}
-          {!useFullSider && <Sider menuItems={siderMenuItems} />}
+          {!useFullSider && <Sider 
+            menuItems={siderMenuItems} 
+            logo={logo}
+            favIcon={favIcon}
+          />}
 
           <Content headerHidden={hideHeader} footerHidden={hideFooter}>
             { children }

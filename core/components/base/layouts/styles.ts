@@ -31,11 +31,7 @@ const siderStyle: React.CSSProperties = {
 };
 
 const footerStyle: React.CSSProperties = {
-  height: lc.footer.heightInPx,
-  lineHeight: lc.footer.heightInPx,
-  padding: 0,
-  color: 'white',
-  background: '#000',
+  padding: "0 15px",
 };
 
 export { 
