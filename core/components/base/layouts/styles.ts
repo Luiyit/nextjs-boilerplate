@@ -31,7 +31,7 @@ const siderStyle: React.CSSProperties = {
 };
 
 const footerStyle: React.CSSProperties = {
-  padding: "0 15px",
+  padding: 0,
 };
 
 export { 
