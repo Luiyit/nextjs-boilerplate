@@ -72,7 +72,7 @@ const Trigger: React.FC<TriggerProps> = (props) => {
       {!render && <Button type="primary" onClick={openModal}>{ props.text || 'Open modal' }</Button>}
 
       {/* Modal */}
-      <Modal { ...modalProps} {...rest}>
+      <Modal destroyOnClose { ...modalProps} {...rest}>
         { props.children(childrenProps as CallbackProps) }
       </Modal>
     </>

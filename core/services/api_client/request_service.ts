@@ -55,6 +55,10 @@ export default class RequestService<DataType extends PageableType> {
   protected async _update(url: string, payload: DataType, config: AxiosRequestConfig = {}): Promise<DataType> {
     return await this.client.put<DataType>(url, payload, config);
   }
+  
+  protected async _delete(url: string, config: AxiosRequestConfig = {}): Promise<DataType> {
+    return await this.client.delete<DataType>(url, config);
+  }
 
   /**
    * Return a default pagination or a pagination object from query

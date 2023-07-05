@@ -33,6 +33,7 @@ interface Props {
   computeTotalItems?: boolean;
   params?: IHash<string | number>;
   setRef?: Function;
+  logData?: boolean;
 }
 
 export interface RefType {
@@ -45,7 +46,8 @@ const UseListFetcher = <DataType>({
   computeTotalItems, 
   setRef, 
   pageSize: customSize = defaultPagination.pageSize, 
-  params = {} 
+  params = {},
+  logData
 }: Props) => {
 
   const [data, setData] = useState<DataType[]>([]);
@@ -55,6 +57,10 @@ const UseListFetcher = <DataType>({
   const maxPage = useRef(0)
   const { current, pageSize } = pagination;
  
+  useEffect(() => {
+    if(logData) console.log(`${ sourceUrl }`, data, params, pagination)
+  }, [sourceUrl, logData, data, params, pagination])
+
   const fetchData = useCallback(async (resetPages = false) => {
     const reFetch = resetPages || pagination.forceReFetch;
 

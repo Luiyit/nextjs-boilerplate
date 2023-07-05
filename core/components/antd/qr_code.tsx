@@ -8,14 +8,14 @@ export interface QrCodeProps {
   value: string
   size?: number
   iconSize?: number
-  showBrandIcon?: boolean
+  icon?: string
 }
-const QrCode = ({ size=300, iconSize=50, showBrandIcon, ...rest }: QrCodeProps) => {
+const QrCode = ({ size=300, iconSize=50, icon, ...rest }: QrCodeProps) => {
   return (
     <QRCode
       size={size}
       iconSize={iconSize}
-      icon={showBrandIcon && brand.favLogo.src || undefined}
+      icon={icon || undefined}
       {...rest}
     />
   )

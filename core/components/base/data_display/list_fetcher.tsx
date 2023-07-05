@@ -9,11 +9,16 @@ interface ListFetcherProps {
   keepAllPages?: boolean;
   children: Function;
   onError?: (error: any) => void;
+  computeTotalItems?: boolean;
 }
 
 function ListFetcher<DataType>(props: ListFetcherProps){
   const { sourceUrl, children } = props
-  const fetcher = UseListFetcher<DataType>({ sourceUrl, keepAllPages: props.keepAllPages })
+  const fetcher = UseListFetcher<DataType>({ 
+    sourceUrl, 
+    keepAllPages: props.keepAllPages,
+    computeTotalItems: props.computeTotalItems,
+  })
   
   useOnChange(() => {
     if(fetcher.error && props.onError) props.onError(fetcher.error)

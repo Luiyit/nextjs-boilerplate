@@ -87,9 +87,9 @@ export default class Axios {
 		return await this.call<DataType>(this.axios.put, [url, params, putConfig]);
 	}
 
-	async delete(url: string, config: AxiosRequestConfig = {}): Promise<ApiResponse>{
+	async delete<DataType>(url: string, config: AxiosRequestConfig = {}): Promise<DataType>{
 		const deleteConfig = await this.generateConfig(config);
-		return await this.call(this.axios.get, [url, deleteConfig]);
+		return await this.call<DataType>(this.axios.delete, [url, deleteConfig]);
 	}
 
 	call<DataType>(callback: Function, params: any): Promise<DataType>{

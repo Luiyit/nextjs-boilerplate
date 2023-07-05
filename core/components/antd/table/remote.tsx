@@ -24,16 +24,20 @@ interface RemoteTableProps<DataType> extends TableProps<DataType>{
   onError?: (error: any) => void;
   setRef?: Function;
   fetchParams?: IHash<string | number>;
+  logData?: boolean;
+  pageSize?: number;
 }
 
 function RemoteTable<DataType extends object>(props: RemoteTableProps<DataType>){
 
-  const { sourceUrl, onTableChange, computeTotalItems, setRef, fetchParams, ...rest } = props
+  const { sourceUrl, onTableChange, computeTotalItems, setRef, fetchParams, pageSize, logData, ...rest } = props
   const { data: dataSource, loading, pagination, setPagination, error } = UseListFetcher<DataType>({
     sourceUrl, 
     computeTotalItems,
     setRef,
-    params: fetchParams
+    params: fetchParams,
+    pageSize,
+    logData
   })
   
   const { tableParams, handleTableChange } = useTableParams<DataType>({ pagination, setPagination, onTableChange })
