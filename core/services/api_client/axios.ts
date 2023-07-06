@@ -4,16 +4,19 @@ var changeCase = require('change-object-case');
 import  { AxiosError } from 'axios';
 import { Session } from 'next-auth';
 import { IHash } from './request_service';
+import { JWT } from 'next-auth/jwt';
 
 export interface ApiClientProps{
 	apiUrl: string;
   deserializeResponse: boolean;
 	applyBodySnakeKeys: boolean;
+	returnResponseHeaders?: boolean;
 };
 
 export interface ReqProps{
 	session?: Session | null;
   query?: IHash<string>;
+	token?: JWT | null
 };
 
 interface ApiResponse {
@@ -51,7 +54,7 @@ export default class Axios {
 		}
 
 		if (this.config.deserializeResponse){
-			Axios.responseInterceptor(axiosInstance);
+			Axios.responseInterceptor(axiosInstance, this.config);
 		}
 
 		return axiosInstance;
@@ -120,13 +123,13 @@ export default class Axios {
 		});
 	}
 
-	static responseInterceptor(axiosInstance: AxiosInstance) 
+	static responseInterceptor(axiosInstance: AxiosInstance, config: ApiClientProps) 
 	{
 		axiosInstance.interceptors.response.use(async function (response: any) 
 		{
-			const { data } = response;			
+			const { data, headers } = response;			
 			if(!data || !data.data) {
-				return null;
+				return data;
 			}
 			
 			const deserialized = await new deserializer({
@@ -135,6 +138,9 @@ export default class Axios {
 				typeAsAttribute: false,
 			}).deserialize(data);
 
+			if(config.returnResponseHeaders)
+				return [deserialized, headers]
+			
 			return deserialized;
 		});
 

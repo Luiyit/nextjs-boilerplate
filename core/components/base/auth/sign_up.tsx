@@ -13,7 +13,7 @@ interface Props {
   form?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
 }
 
-const SignIn = ({ providers, onError, onSuccess, setSignIn, form }: Props) => {
+const SignUp = ({ providers, onError, onSuccess, setSignIn, form }: Props) => {
   const { credentials, ...rest } = providers
   const FormComponent = form;
 
@@ -41,4 +41,4 @@ const SignIn = ({ providers, onError, onSuccess, setSignIn, form }: Props) => {
   )
 }
 
-export default SignIn
+export default SignUp

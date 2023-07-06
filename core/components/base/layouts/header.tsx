@@ -3,20 +3,20 @@ import { Layout } from 'antd';
 const { Header: AntHeader } = Layout;
 import { ComponentProps } from '@interfaces/util'
 import Menu from '@base_comps/menu'
-import lc from '@app/config/layout';
 import { Div } from '@styled_comps/blocks';
 import { displayTypes, alignTypes } from '@styled_comps/interfaces';
 import Link from 'next/link'
 import type { MenuProps as AntMenuProps } from 'antd';
-
 import Avatar from '@core/components/base/session/session_avatar'
 import SignInUp from '@base_comps/session/sign_in_up';
-import SignUpForm from '@app_comps/forms/auth/sign_up';
-
 import { MenuType } from '@core/types/menu';
 import Container from '@styled_comps/container'
 import { useTheme } from '@core/providers/theme';
 import hexToRgba from 'hex-to-rgba';
+import Text from '@styled_comps/texts';
+
+import lc from '@app/config/layout';
+import SignUpForm from '@app_comps/forms/auth/sign_up_form';
 
 interface HeaderProps extends ComponentProps{
   menuItems?: MenuType[],
@@ -42,14 +42,14 @@ const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, showLogo, 
   const listenScrollEvent = () => {
 
     /**
-     * Dev note:
+     * DEV NOTE:
      * Normalize scroll position to a value between baseOpacity and opacityOnScroll
      * maxScrollY = 300
      * value = (scrollY / maxScrollY) * (opacityOnScroll - baseOpacity) + baseOpacity
      */
     const scrollOpacity = Math.min((window.scrollY / 300), 1) * (lc.header.fixed.opacityOnScroll - lc.header.fixed.baseOpacity) + lc.header.fixed.baseOpacity;
 
-    // Dev note: Reduce extra renders updating opacity when it reaches the max value
+    // DEV NOTE: Reduce extra renders updating opacity when it reaches the max value
     if(!lc.header.fixed.bgColor || (scrollOpacity >= lc.header.fixed.opacityOnScroll && opacityRef.current >= lc.header.fixed.opacityOnScroll)) return;
 
     setOpacity(scrollOpacity)
@@ -87,7 +87,15 @@ const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, showLogo, 
 
           <Div className="header-right">
             <Avatar menuItems={profileMenuItems} />
-            <SignInUp signupForm={SignUpForm} />
+            <SignInUp 
+              buttonProps={{ 
+                size: "small",
+                shape: 'round',
+                style: {height: "35px", width: "120px"}
+              }} 
+              signupForm={SignUpForm}
+              buttonLabel={<Text fontWeight="700">Sign in</Text>}
+            />
           </Div>
         </Div>
         

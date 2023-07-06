@@ -3,19 +3,22 @@ import { SignInResponse, getProviders, signIn } from "next-auth/react"
 import { AuthProvidersType } from '@core/types/auth';
 import useSignin from './use_signin';
 import ModalTrigger, { CallbackProps } from '@antd_comps/modal/trigger'
-import { Button } from 'antd';
+import { Button, ButtonProps } from 'antd';
 import SignIn from './sign_in'
 import SignUp from './sign_up'
 
-interface Props {
+export interface SignInUpModalProps {
   modalProps: CallbackProps
   renderLink?: boolean
-  size?: 'small' | 'middle' | 'large'
   signupForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
+  starMode?: "signin" | "signup"
+  buttonProps?: ButtonProps
+  buttonLabel?: React.ReactNode
 }
 
-function Handler({ modalProps, signupForm }: Props) {
-  const [mode, setMode] = useState<"signin" | "signup">("signin")
+// TODO: Config if we want to sign in after sign up. If user need to confirm email, the login will fail
+function Handler({ modalProps, signupForm, starMode='signin' }: SignInUpModalProps) {
+  const [mode, setMode] = useState<"signin" | "signup">(starMode)
   
   const [providers, setProviders] = useState<AuthProvidersType | null>(null)
   const { session, onError, onSuccess, alreadySignedIn } = useSignin({ redirectTo: "/" })
@@ -76,18 +79,16 @@ function Handler({ modalProps, signupForm }: Props) {
           form={signupForm}
         />
       )}
-
-      
     </>
   )
 }
 
-const SignInUpModal = ({ renderLink, size, ...rest }: Omit<Props, "modalProps">) => {
+const SignInUpModal = ({ renderLink, buttonProps, buttonLabel= "Sign in", ...rest }: Omit<SignInUpModalProps, "modalProps">) => {
   
   const render = (cbProps: CallbackProps) => {
     return (
-      <Button type={renderLink ? "link": "primary"} onClick={() => cbProps.setOpen(true)} size={size}>
-        Sign in
+      <Button onClick={() => cbProps.setOpen(true)} {...buttonProps}>
+        { buttonLabel }
       </Button>
     )
   }

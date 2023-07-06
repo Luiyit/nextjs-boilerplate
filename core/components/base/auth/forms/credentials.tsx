@@ -71,6 +71,7 @@ const AuthCredentialsForm = ({ onSuccess, onError, provider, signup }: Props) =>
                 label={label}
                 placeholder={placeholder}
                 rules={rules}
+                defaultValue="test9@gmail.com"
               />
             )
           })}

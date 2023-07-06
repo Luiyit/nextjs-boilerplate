@@ -6,13 +6,13 @@ import { useRouter } from 'next/router'
 import { CoreSubMenuType, MenuType } from '@core/types/menu';
 import { pathnameMatches } from '@core/utils/pathname';
 
-interface MenuProps extends ComponentProps {
+interface MenuProps extends AntMenuProps {
   items?: MenuType[],
   mode?: AntMenuProps['mode']
   theme?: AntMenuProps['theme']
 }
 
-const Menu: React.FC<MenuProps> = ({ items, mode, theme }) => {
+const Menu: React.FC<MenuProps> = ({ items, mode, theme, ...rest }) => {
   const [current, setCurrent] = useState('');
   const { pathname } = useRouter()
   
@@ -39,7 +39,14 @@ const Menu: React.FC<MenuProps> = ({ items, mode, theme }) => {
   if(!items || !items.length) return null;
 
   return (
-    <AntMenu items={items} mode={mode || "horizontal"} theme={theme} selectedKeys={[current]} onClick={onClick} />
+    <AntMenu 
+      items={items} 
+      mode={mode || "horizontal"} 
+      theme={theme} 
+      selectedKeys={[current]} 
+      onClick={onClick} 
+      {...rest}
+    />
   )
 }
 

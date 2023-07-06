@@ -1,11 +1,12 @@
 import { IHash } from '@core/types/util.d'
 import { PageableType, PaginationType } from '@services/api_client/types.d'
-import { defaultPagination } from '@config/api'
 import Axios, { ReqProps } from './axios';
 import { NextApiRequest } from 'next';
-import ExternalClient from '@app/services/base/external_client';
 import { AxiosRequestConfig } from 'axios';
 import { ApiResponse } from "@core/services/api_client/types";
+
+import { defaultPagination } from '@config/api'
+import ExternalClient from '@app/services/base/external_client';
 
 // Export used types
 export type { IHash, PaginationType, NextApiRequest, AxiosRequestConfig }
@@ -48,11 +49,15 @@ export default class RequestService<DataType extends PageableType> {
     return await this.client.get<DataType>(url, params, config);
   }
 
-  protected async _create(url: string, payload: DataType, config: AxiosRequestConfig = {}): Promise<DataType> {
+  // TODO: Sometimes the Response dataTYpe is different than payload
+  // Fix: pass another generic to the function _create<payload_type> or set like any
+  protected async _create(url: string, payload: any, config: AxiosRequestConfig = {}): Promise<DataType> {
     return await this.client.post<DataType>(url, payload, config);
   }
  
-  protected async _update(url: string, payload: DataType, config: AxiosRequestConfig = {}): Promise<DataType> {
+  // TODO: Sometimes the Response dataTYpe is different than payload
+  // Fix: pass another generic to the function _create<payload_type> or set like any
+  protected async _update(url: string, payload: any, config: AxiosRequestConfig = {}): Promise<DataType> {
     return await this.client.put<DataType>(url, payload, config);
   }
   
