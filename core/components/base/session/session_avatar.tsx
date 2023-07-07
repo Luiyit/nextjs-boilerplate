@@ -23,7 +23,7 @@ const Avatar = ({ disabled, size = 35, displayName=true, menuItems }: Props) => 
 
   return (
     <AvatarContainer menu={{ items: menuItems, style: { fontSize: "14px"} }} disabled={disabled}>
-      <Flex onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.preventDefault()} alignItems="center" >
+      <Flex onClick={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()} alignItems="center" >
         {displayName && <Text padding='0 5px'>{ user.name }</Text>}
         {user.image && <AntAvatar size={size} src={<Image src={user.image} alt="avatar" width={size as number} height={size as number} />} /> }
         {!user.image && <AntAvatar >{ firstLetter }</AntAvatar> }

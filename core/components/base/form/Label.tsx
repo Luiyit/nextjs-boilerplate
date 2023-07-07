@@ -12,7 +12,7 @@ interface LabelProps {
 
 export default function Label({ name, label, children, isRequired, renderPopover }: LabelProps) {
   return (
-    <Flex as="label" htmlFor={name} marginB="5px" alignItem="center" justifyContent="space-between" paddingR="5px">
+    <Flex {...{ as: "label", htmlFor: name }} marginB="5px" alignItems="center" justifyContent="space-between" paddingR="5px">
       <Text as="span" fontWeight="600" >
         {label || children}
         {isRequired && <Text as="span" paddingL="3px">*</Text>}

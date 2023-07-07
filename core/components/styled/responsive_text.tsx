@@ -41,11 +41,10 @@ const Text = styled(BaseText).attrs((props: ResponsiveTextI) => props)`
     ${({ xxl }) => xxl && `font-size: ${xxl};`}
   }
 `
-interface Props extends Omit<ResponsiveTextI, "as">, ComponentProps {
-  as?: string
+interface Props extends ResponsiveTextI, ComponentProps {
 }
 
-const ResponsiveText: React.FC<Props> = ({ children, as, ...rest}) => {
+const ResponsiveText: React.FC<Props> = ({ children, ...rest}) => {
   return (
     <Text {...rest}>
       { children }

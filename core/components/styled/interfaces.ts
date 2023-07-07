@@ -4,7 +4,6 @@
  **/
 
 export interface BaseProps{
-  ref?: React.RefObject<HTMLElement>
 }
 
 export interface MarginProps{
@@ -200,7 +199,6 @@ export interface gridProps{
   // Define the size of the rows and columns in a grid
   gridColumn?: string | undefined;
   gridRow?: string | undefined;
-
 
   grid?: string | undefined;
   gridAutoColumns?: string | undefined;

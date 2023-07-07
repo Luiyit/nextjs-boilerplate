@@ -37,7 +37,7 @@ const InfinityScroll: React.FC<InfinityScrollProps> = ({ pagination, loading, se
     setPagination({ ...pagination, current: current + 1 });
   }
 
-  const scrollRef = useBottomScrollListener(onBottom);
+  const scrollRef = useBottomScrollListener<HTMLDivElement>(onBottom);
 
   const containerStyle = !showMore && {
     height: height || 'auto',

@@ -1,5 +1,5 @@
 "use client"
-import styled from 'styled-components';
+import styled, { ThemedStyledFunctionBase, DefaultTheme  } from 'styled-components';
 import { TextI } from '@styled_comps/interfaces';
 import { 
   marginStyle,
@@ -9,7 +9,8 @@ import {
   dimensionStyle,
 } from '@styled_comps/style_templates';
 
-const Text = styled.p.attrs((props: TextI) => { return props })`
+// https://stackoverflow.com/questions/61979237/styled-components-attrs-w-typescript
+const Text = styled.p.attrs<TextI>((props) => { return props })<TextI>`
   ${textFontStyle};
   ${marginStyle};
   ${paddingStyle};

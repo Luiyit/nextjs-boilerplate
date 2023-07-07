@@ -16,7 +16,7 @@ import {
 } from '@styled_comps/style_templates';
 import { isNumber } from '@core/utils/number';
 
-const Div = styled.div.attrs((props: DivI) => (props))`
+const Div = styled.div.attrs<DivI>(props => (props))<DivI>`
   ${positionStyle}
   ${marginStyle}
   ${paddingStyle}
@@ -29,9 +29,9 @@ const Div = styled.div.attrs((props: DivI) => (props))`
   ${transformStyle}
 `;
 
-const Flex = styled(Div).attrs((props: DivI) => ({...props, display: props.display || 'flex'}))``;
+const Flex = styled(Div).attrs<DivI>(props => ({...props, display: props.display || 'flex'}))<DivI>``;
 
-const Grid = styled.div.attrs((props: GridI) => {
+const Grid = styled.div.attrs<GridI>(props => {
   const { gutter, ...rest } = props;
   let [rowGap, columnGap] = gutter || [null, null]
 
@@ -43,15 +43,14 @@ const Grid = styled.div.attrs((props: GridI) => {
     rowGap: rowGap || props.rowGap || props.gap,
     columnGap: columnGap || props.columnGap || props.gap,
   };
-})`
+})<GridI>`
   display: grid;
   ${dimensionStyle}
   ${otherStyle}
   ${gridStyle}
 `
 
-const GridBox = styled(Div).attrs((props: GridI) => (props))`
-
+const GridBox = styled(Div).attrs<GridI>(props => (props))<GridI>`
   ${gridStyle}
 `;
 
