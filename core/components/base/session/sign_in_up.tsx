@@ -3,14 +3,16 @@ import { useSession } from '@core/providers/session'
 import SignInUpModal, { SignInUpModalProps } from '@base_comps/auth/sign_in_up_modal';
 
 interface Props extends Omit<SignInUpModalProps, "modalProps"> {
-  signupForm: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
+  signupForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
+  forgotPasswordForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
 }
-const SignInUp = ({ signupForm, ...rest }: Props) => {
+
+const SignInUp = ({ signupForm, forgotPasswordForm, ...rest }: Props) => {
   const { user } = useSession();
   if(user) return null;
 
   return (
-    <SignInUpModal signupForm={signupForm} {...rest} />
+    <SignInUpModal signupForm={signupForm} forgotPasswordForm={forgotPasswordForm} {...rest} />
   )
 }
 

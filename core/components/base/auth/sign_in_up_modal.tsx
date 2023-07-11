@@ -14,10 +14,11 @@ export interface SignInUpModalProps {
   starMode?: "signin" | "signup"
   buttonProps?: ButtonProps
   buttonLabel?: React.ReactNode
+  forgotPasswordForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
 }
 
 // TODO: Config if we want to sign in after sign up. If user need to confirm email, the login will fail
-function Handler({ modalProps, signupForm, starMode='signin' }: SignInUpModalProps) {
+function Handler({ modalProps, signupForm, forgotPasswordForm, starMode='signin' }: SignInUpModalProps) {
   const [mode, setMode] = useState<"signin" | "signup">(starMode)
   
   const [providers, setProviders] = useState<AuthProvidersType | null>(null)
@@ -37,7 +38,7 @@ function Handler({ modalProps, signupForm, starMode='signin' }: SignInUpModalPro
     }
   }, [modalProps, alreadySignedIn, session])
 
-  function localOnSuccess(response: SignInResponse) {
+  function onSignInSuccess(response: SignInResponse) {
     onSuccess(response, false)
     modalProps.setOpen(false)
   }
@@ -51,7 +52,7 @@ function Handler({ modalProps, signupForm, starMode='signin' }: SignInUpModalPro
       redirect: false,
     })
 
-    if(response?.ok) localOnSuccess(response)
+    if(response?.ok) onSignInSuccess(response)
     else onError(response)
   }
 
@@ -64,9 +65,10 @@ function Handler({ modalProps, signupForm, starMode='signin' }: SignInUpModalPro
         <SignIn 
           providers={providers}
           onError={onError}
-          onSuccess={localOnSuccess}
+          onSuccess={onSignInSuccess}
           setSignUp={() => setMode("signup")}
           allowSignup={!!signupForm}
+          forgotPasswordForm={forgotPasswordForm}
         />
       )}
 

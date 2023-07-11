@@ -1,8 +1,10 @@
-import type { NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import type { ApiError } from '@services/api_client/types.d'
 import { AxiosError } from 'axios'
 
+// TODO type callback
 type ParamsType = {
+  req: NextApiRequest, 
   res: NextApiResponse<ApiError | Error>, 
   callback: Function,
 }
@@ -55,10 +57,11 @@ function withAxiosError(axiosError: AxiosError): ApiError{
   }
 }
 
-export default async function withErrorCatcher({ res, callback }: ParamsType) {
+export default async function withErrorCatcher({ res, req, callback }: ParamsType) {
   try {
-    await callback()    
+    await callback(req, res)    
   } catch (_) {
+    console.log("ERROR: ", _)
     const error = withError(_);
     res.status(error.status).json(error) 
   }

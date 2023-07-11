@@ -17,6 +17,7 @@ import Text from '@styled_comps/texts';
 
 import lc from '@app/config/layout';
 import SignUpForm from '@app_comps/forms/auth/sign_up_form';
+import ForgotPasswordForm from '@app_comps/forms/auth/forgot_password';
 
 interface HeaderProps extends ComponentProps{
   menuItems?: MenuType[],
@@ -94,6 +95,7 @@ const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, showLogo, 
                 style: {height: "35px", width: "120px"}
               }} 
               signupForm={SignUpForm}
+              forgotPasswordForm={ForgotPasswordForm}
               buttonLabel={<Text fontWeight="700">Sign in</Text>}
             />
           </Div>

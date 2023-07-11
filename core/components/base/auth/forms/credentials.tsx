@@ -20,7 +20,7 @@ interface Props {
   onSuccess?: Function
   onError?: Function
   signup?: boolean
-  showPasswordConfirmation?: boolean
+  forgotPasswordForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
 }
 
 /**
@@ -28,7 +28,7 @@ interface Props {
  * Now this form only support input fields for credentials
  * that are defined in the next-auth config file
  */
-const AuthCredentialsForm = ({ onSuccess, onError, provider, signup }: Props) => {
+const AuthCredentialsForm = ({ onSuccess, onError, provider, signup, forgotPasswordForm }: Props) => {
   
   const [saving, setSaving] = useState<boolean>(false)
   const [error, setError] = useState<any>({})
@@ -54,6 +54,7 @@ const AuthCredentialsForm = ({ onSuccess, onError, provider, signup }: Props) =>
   const { credentials } = credentialsProvider.options as any
   if(Object.keys(credentials).length === 0) return null;
 
+  console.log(forgotPasswordForm)
   return (
     <HookForm<Inputs> {...{ onSubmit, error }}>
       {({ methods }) => {
@@ -71,7 +72,6 @@ const AuthCredentialsForm = ({ onSuccess, onError, provider, signup }: Props) =>
                 label={label}
                 placeholder={placeholder}
                 rules={rules}
-                defaultValue="test9@gmail.com"
               />
             )
           })}
@@ -81,7 +81,13 @@ const AuthCredentialsForm = ({ onSuccess, onError, provider, signup }: Props) =>
               name="remember"
               label="Keep me logged in"
             />
-            <ResetModal renderLink />
+
+            {forgotPasswordForm && (
+              <ResetModal 
+                form={forgotPasswordForm} 
+                renderLink
+              />
+            )}
           </Flex>
           
           <Button

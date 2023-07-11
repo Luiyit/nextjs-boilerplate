@@ -12,9 +12,10 @@ interface Props {
   onSuccess?: Function
   setSignUp?: Function
   allowSignup?: boolean
+  forgotPasswordForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
 }
 
-const SignIn = ({ providers, onError, onSuccess, setSignUp, allowSignup }: Props) => {
+const SignIn = ({ providers, onError, onSuccess, setSignUp, allowSignup, forgotPasswordForm }: Props) => {
   const { credentials, ...rest } = providers
 
   return (
@@ -27,7 +28,12 @@ const SignIn = ({ providers, onError, onSuccess, setSignUp, allowSignup }: Props
       <OAuthForms providers={rest} />
       <Divider>Or login with email</Divider>
 
-      <AuthCredentialsForm provider={credentials} onError={onError} onSuccess={onSuccess}/>
+      <AuthCredentialsForm 
+        provider={credentials} 
+        onError={onError} 
+        onSuccess={onSuccess}
+        forgotPasswordForm={forgotPasswordForm}
+      />
 
       {allowSignup && setSignUp && (
         <>

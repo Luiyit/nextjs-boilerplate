@@ -28,6 +28,6 @@ export default async function withServerAuthSession({req, res, callback, useErro
     await callback(req, res, session, token)
   }
 
-  if (useErrorCatcher) await withErrorCatcher({ res, callback: caller });
+  if (useErrorCatcher) await withErrorCatcher({ req, res, callback: caller });
   else await caller();
 }

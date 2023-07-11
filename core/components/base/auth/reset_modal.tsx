@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { getProviders } from "next-auth/react"
-import AuthResetCredentialsForm from './forms/forgot_password';
-import { AuthProvidersType } from '@core/types/auth';
+import React, { useEffect } from 'react'
 import useSignin from './use_signin';
 import ModalTrigger, { CallbackProps } from '@antd_comps/modal/trigger'
 import { Button } from 'antd';
@@ -13,19 +10,14 @@ interface Props {
   modalProps: CallbackProps
   renderLink?: boolean
   size?: 'small' | 'middle' | 'large' | undefined
+  form?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
 }
 
-function Handler({ modalProps }: Props) {
-  const [providers, setProviders] = useState<AuthProvidersType | null>(null)
+function Handler({ modalProps, form }: Props) {
+  
   const { session, alreadySignedIn } = useSignin({ redirectTo: "/" })
   const { info } = useNotifier()
-
-  useEffect(() => {
-    (async () => {
-      const providers = await getProviders()
-      if(providers) setProviders(providers)
-    })()
-  }, [])
+  const FormComponent = form
 
   useEffect(() => {
     if (session.data && session.status === "authenticated"){ 
@@ -39,8 +31,7 @@ function Handler({ modalProps }: Props) {
     modalProps.setOpen(false)
   }  
 
-  if(!providers) return null
-  const { credentials, ...rest } = providers
+  if(!FormComponent) return null
 
   return (
     <>
@@ -49,8 +40,7 @@ function Handler({ modalProps }: Props) {
         <Text>Enter the email address associated with your account</Text>
       </Div>
 
-      <AuthResetCredentialsForm 
-        provider={credentials} 
+      <FormComponent 
         onError={localOnSuccess} 
         onSuccess={localOnSuccess}
       />
@@ -58,7 +48,7 @@ function Handler({ modalProps }: Props) {
   )
 }
 
-const ResetModal = ({ renderLink, size }: Omit<Props, "modalProps">) => {
+const ResetModal = ({ renderLink, size, ...rest }: Omit<Props, "modalProps">) => {
   
   const render = (cbProps: CallbackProps) => {
     return (
@@ -85,7 +75,7 @@ const ResetModal = ({ renderLink, size }: Omit<Props, "modalProps">) => {
       footer={null}
     >
       {(modalProps) => (
-        <Handler modalProps={modalProps} />
+        <Handler modalProps={modalProps} {...rest} />
       )}
     </ModalTrigger>
   )

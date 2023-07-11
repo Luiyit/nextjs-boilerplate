@@ -8,7 +8,7 @@ import type { FieldDataType } from '../types';
 export default function CheckboxController(props: Omit<FieldProps, "fieldData">){
   const { type } = props;
   const { control } = useFormContext();
-
+  
   const renderControl = (fieldData: FieldDataType) => {
     if(type === 'hidden') return <Checkbox fieldData={fieldData} {...props}  />
     return (
@@ -23,6 +23,7 @@ export default function CheckboxController(props: Omit<FieldProps, "fieldData">)
 
   return (
     <Controller
+      defaultValue={false}
       control={control}
       render={renderControl}
       {...props}
