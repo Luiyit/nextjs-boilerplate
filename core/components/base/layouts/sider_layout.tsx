@@ -12,8 +12,9 @@ import { MenuType, MenuGeneratorType } from "@core/types/menu";
 import { useSession } from '@core/providers/session';
 import { theme } from 'antd'
 const { useToken } = theme;
-import { useTheme } from '@root/core/providers/theme';
-import { useCoreConfig } from '@root/core/providers/config';
+import { useTheme } from '@core/providers/theme';
+import { useCoreConfig } from '@core/providers/config';
+import Head from './head';
 
 interface SiderLayoutProps extends ComponentProps{
   siderMenu?: MenuType[] | MenuGeneratorType
@@ -40,6 +41,7 @@ const SiderLayout: React.FC<SiderLayoutProps> = ({ children, siderMenu, headerMe
 
   return (
     <React.Fragment>
+      <Head />
       <SiderLayoutStyle colorText={token.colorText} config={config.siderLayout} />
       <Layout className={`ant-${template}-template`}>
         {!useFullSider && !hideHeader && (

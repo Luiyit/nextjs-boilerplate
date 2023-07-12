@@ -9,10 +9,13 @@ export interface BrandI {
   name?: string,
   shortName?: string,
   contactEmail?: string,
+  contactPhone?: string,
   description?: string,
   keywords?: string[],
   renderLogo?: (layout: LayoutType, isDark: boolean, extra: any) => JSX.Element,
   renderFav?: (layout: LayoutType, isDark: boolean, extra: any) => JSX.Element,
+  faviconLinkPath?: string,
+  webmanifestLinkPath?: string,
 }
 
 export interface FixedHeaderConfigI {
@@ -64,6 +67,7 @@ export type AuthFormI = React.ComponentType<{
 export interface AuthConfigI {
   signInAfterCredentialsSignUp?: boolean
   signInText?: string
+  signUpText?: string
   enabledSignUp?: boolean
   forgotPasswordForm?: AuthFormI
   signUpForm?: AuthFormI,

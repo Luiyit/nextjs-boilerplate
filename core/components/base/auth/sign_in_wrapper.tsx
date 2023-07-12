@@ -14,9 +14,10 @@ interface Props {
   setSignUp?: Function
   allowSignup?: boolean
   forgotPasswordForm?: AuthFormI
+  signUpLabel?: string
 }
 
-const SignIn = ({ providers, onError, onSuccess, setSignUp, allowSignup, forgotPasswordForm }: Props) => {
+const SignIn = ({ providers, onError, onSuccess, setSignUp, allowSignup, forgotPasswordForm, signUpLabel }: Props) => {
   const { credentials, ...rest } = providers
 
   return (
@@ -41,7 +42,7 @@ const SignIn = ({ providers, onError, onSuccess, setSignUp, allowSignup, forgotP
           <Divider />
           <Div textAlign="center">
             <Text>Don&apos;t have an account?</Text>
-            <Button type="link" onClick={() => setSignUp()}>Sign up</Button>
+            <Button type="link" onClick={() => setSignUp()}>{ signUpLabel || 'Sign up' }</Button>
           </Div>
         </>
       )}

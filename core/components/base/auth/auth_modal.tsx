@@ -10,14 +10,13 @@ import { useCoreConfig } from '@core/providers/config'
 
 export interface SignInUpModalProps {
   modalProps: CallbackProps
-  starMode?: "signin" | "signup"
+  startMode?: "signin" | "signup"
   buttonProps?: ButtonProps
-  buttonLabel?: React.ReactNode
 }
 
 // TODO: Config if we want to sign in after sign up. If user need to confirm email, the login will fail
-function Handler({ modalProps, starMode='signin' }: SignInUpModalProps) {
-  const [mode, setMode] = useState<"signin" | "signup">(starMode)
+function Handler({ modalProps, startMode='signin' }: SignInUpModalProps) {
+  const [mode, setMode] = useState<"signin" | "signup">(startMode)
   const [providers, setProviders] = useState<AuthProvidersType | null>(null)
   const { session, onError, onSuccess, alreadySignedIn } = useSignin({ redirectTo: "/" })
   const { auth } = useCoreConfig()
@@ -68,6 +67,7 @@ function Handler({ modalProps, starMode='signin' }: SignInUpModalProps) {
           setSignUp={() => setMode("signup")}
           allowSignup={auth.enabledSignUp}
           forgotPasswordForm={auth.forgotPasswordForm}
+          signUpLabel={auth.signUpText}
         />
       )}
 
@@ -78,19 +78,20 @@ function Handler({ modalProps, starMode='signin' }: SignInUpModalProps) {
           onSuccess={onSignupSuccess}
           setSignIn={() => setMode("signin")}
           form={auth.signUpForm}
+          signInLabel={auth.signInText}
         />
       )}
     </>
   )
 }
 
-const SignInUpModal = ({ buttonProps, ...rest }: Omit<SignInUpModalProps, "modalProps">) => {
+const SignInUpModal = ({ buttonProps, startMode='signin', ...rest }: Omit<SignInUpModalProps, "modalProps">) => {
   const { auth } = useCoreConfig()
   
   const render = (cbProps: CallbackProps) => {
     return (
       <Button onClick={() => cbProps.setOpen(true)} {...buttonProps}>
-        { auth.signInText }
+        {startMode === 'signin' ? auth.signInText :  auth.signUpText }
       </Button>
     )
   }

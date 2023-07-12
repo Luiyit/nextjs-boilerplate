@@ -12,9 +12,10 @@ interface Props {
   form?: AuthFormI
   onSuccess?: StateFnCallback
   onError?: StateFnCallback
+  signInLabel?: string
 }
 
-const SignUp = ({ providers, onError, onSuccess, setSignIn, form }: Props) => {
+const SignUp = ({ providers, onError, onSuccess, setSignIn, form, signInLabel }: Props) => {
   const { credentials, ...rest } = providers
   const FormComponent = form;
 
@@ -36,7 +37,7 @@ const SignUp = ({ providers, onError, onSuccess, setSignIn, form }: Props) => {
       <Divider />
       <Div textAlign="center">
         <Text>Already have an account</Text>
-        <Button type="link" onClick={() => setSignIn()}>Sign in</Button>
+        <Button type="link" onClick={() => setSignIn()}>{signInLabel || 'Sign in'}</Button>
       </Div>
     </>
   )

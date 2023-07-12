@@ -4,12 +4,15 @@ import Axios, { ReqProps } from './axios';
 import { NextApiRequest } from 'next';
 import { AxiosRequestConfig } from 'axios';
 import { ApiResponse } from "@core/services/api_client/types";
+
+// TODO: fix this imports
 import ExternalClient from '@app/services/base/external_client';
 import config from '@app/config/core/index'
 
 // Export used types
 export type { IHash, PaginationType, NextApiRequest, AxiosRequestConfig }
 
+// TODO: Fix me! Not all services need that interface extends of PageableType
 export default class RequestService<DataType extends PageableType> {
 
   protected client: Axios;

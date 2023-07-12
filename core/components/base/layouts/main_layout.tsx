@@ -10,9 +10,10 @@ import { MenuType, MenuGeneratorType } from "@core/types/menu";
 import { useSession } from '@core/providers/session';
 import { theme } from 'antd'
 const { useToken } = theme;
-import { useTheme } from '@root/core/providers/theme';
+import { useTheme } from '@core/providers/theme';
 import { getBrandAssets } from '@core/utils/header'
-import { useCoreConfig } from '@root/core/providers/config';
+import { useCoreConfig } from '@core/providers/config';
+import Head from './head'
 
 interface MainLayoutProps extends ComponentProps{
   template?: 'full-vav' | 'full-sider'
@@ -27,14 +28,16 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, headerMenu, profileMe
   const { token } = useToken()
   const { dark } = useTheme()
   const config = useCoreConfig()
-  const { header, footerBar } = config.mainLayout
+  const { mainLayout } = config
+  const { header, footerBar } = mainLayout
 
   const menuItems = generateMenu(headerMenu, user);
   const profileMenuItems = generateMenu(profileMenu, user);
   const { logo, favIcon} = getBrandAssets("main", dark, config)
-
+  
   return (
     <React.Fragment>
+      <Head />
       <MainLayoutStyle colorText={token.colorText} config={config.mainLayout} />
       <Layout className={`ant-full-content-template ${!!header.fixed ? 'fixed-header' : ''}`}>
         {!hideHeader && (

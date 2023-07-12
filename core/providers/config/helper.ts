@@ -94,6 +94,7 @@ function getAuthConfig(auth: AuthConfigI | undefined): AuthConfigI {
   return {
     signInAfterCredentialsSignUp: false,
     signInText: 'Sign in',
+    signUpText: 'Sign up',
     enabledSignUp: enabledSignUp !== undefined ? enabledSignUp && !!signUpForm : !!signUpForm,
     ...forms,
     ...restAuth,
