@@ -5,6 +5,7 @@ import OAuthForms from './forms/oauth';
 import { Button, Divider } from 'antd';
 import Text from '@core/components/styled/texts';
 import { Div } from '@core/components/styled/blocks';
+import { AuthFormI } from '@root/core/types/global_config';
 
 interface Props {
   providers: Omit<AuthProvidersType, "credentials">
@@ -12,7 +13,7 @@ interface Props {
   onSuccess?: Function
   setSignUp?: Function
   allowSignup?: boolean
-  forgotPasswordForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
+  forgotPasswordForm?: AuthFormI
 }
 
 const SignIn = ({ providers, onError, onSuccess, setSignUp, allowSignup, forgotPasswordForm }: Props) => {

@@ -13,18 +13,15 @@ export interface SignInUpModalProps {
   starMode?: "signin" | "signup"
   buttonProps?: ButtonProps
   buttonLabel?: React.ReactNode
-  signupForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
-  forgotPasswordForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
 }
 
 // TODO: Config if we want to sign in after sign up. If user need to confirm email, the login will fail
-function Handler({ modalProps, signupForm, forgotPasswordForm, starMode='signin' }: SignInUpModalProps) {
+function Handler({ modalProps, starMode='signin' }: SignInUpModalProps) {
   const [mode, setMode] = useState<"signin" | "signup">(starMode)
   const [providers, setProviders] = useState<AuthProvidersType | null>(null)
   const { session, onError, onSuccess, alreadySignedIn } = useSignin({ redirectTo: "/" })
   const { auth } = useCoreConfig()
-  console.log(auth)
-  
+    
   useEffect(() => {
     (async () => {
       const providers = await getProviders()
@@ -53,8 +50,10 @@ function Handler({ modalProps, signupForm, forgotPasswordForm, starMode='signin'
       redirect: false,
     })
 
-    if(response?.ok) onSignInSuccess(response)
-    else onError(response)
+    if(response?.ok){
+      if(auth.signInAfterCredentialsSignUp) onSignInSuccess(response)
+      else setMode('signin')
+    }else onError(response)
   }
 
   if(!providers) return null

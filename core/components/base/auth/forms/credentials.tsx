@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react"
 import { authOptions } from '@api/auth/[...nextauth]'
 import { Flex, Grid } from '@styled_comps/blocks';
 import ResetModal from '../reset_modal'
+import { AuthFormI } from '@root/core/types/global_config';
 
 interface Inputs {
   password: string
@@ -20,7 +21,7 @@ interface Props {
   onSuccess?: Function
   onError?: Function
   signup?: boolean
-  forgotPasswordForm?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
+  forgotPasswordForm?: AuthFormI
 }
 
 /**
@@ -54,7 +55,6 @@ const AuthCredentialsForm = ({ onSuccess, onError, provider, signup, forgotPassw
   const { credentials } = credentialsProvider.options as any
   if(Object.keys(credentials).length === 0) return null;
 
-  console.log(forgotPasswordForm)
   return (
     <HookForm<Inputs> {...{ onSubmit, error }}>
       {({ methods }) => {

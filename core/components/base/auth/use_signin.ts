@@ -10,16 +10,16 @@ const useSignin = (prams: { redirectTo?: string } = {}) => {
   const { error, info } = useNotifier();
   const router = useRouter()
 
-  const onError = useCallback((response: SignInResponse | undefined) => {
+  const onError = useCallback(async (response: SignInResponse | undefined) => {
     error(response?.error || "Error", "Something went wrong, please try again")
   }, [error])
 
-  const onSuccess = useCallback((response: SignInResponse | undefined, redirect: boolean = true) => {
+  const onSuccess = useCallback(async (response: SignInResponse | undefined, redirect: boolean = true) => {
     info("Welcome back", "You have successfully signed in")
     redirect && router.push(redirectTo || response?.url || "/")
   }, [redirectTo, info, router])
 
-  const alreadySignedIn = useCallback((redirect: boolean = true) => {
+  const alreadySignedIn = useCallback(async (redirect: boolean = true) => {
     info("Logged in", "You already have an active session")
     redirect && router.push(redirectTo || "/")
   }, [redirectTo, info, router])

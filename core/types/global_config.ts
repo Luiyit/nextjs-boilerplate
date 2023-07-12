@@ -55,17 +55,18 @@ export interface SidebarConfigI {
   logoHeightInPx: string,
 }
 
-export type StateFnCallback = () => Promise<any>
-export type AuthForm = React.ReactElement<{ 
-  onSuccess?: StateFnCallback 
-  onError?: StateFnCallback 
+export type StateFnCallback = (...params: any[]) => Promise<any>
+export type AuthFormI = React.ComponentType<{ 
+  onSuccess?: StateFnCallback | undefined
+  onError?: StateFnCallback | undefined
 }>
 
 export interface AuthConfigI {
-  enablePasswordConfirmation?: boolean
-  enablePasswordReset?: boolean
-  forgotPasswordForm?: AuthForm
-  signupForm?: AuthForm,
+  signInAfterCredentialsSignUp?: boolean
+  signInText?: string
+  enabledSignUp?: boolean
+  forgotPasswordForm?: AuthFormI
+  signUpForm?: AuthFormI,
 }
 
 export type SiderLayoutI = LayoutI & { sidebar: SidebarConfigI } & { template: 'full-vav' | 'full-sider' }

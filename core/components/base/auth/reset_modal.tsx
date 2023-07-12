@@ -5,12 +5,13 @@ import { Button } from 'antd';
 import Text from '@core/components/styled/texts';
 import { Div } from '@core/components/styled/blocks';
 import { useNotifier } from '@core/providers/notifier';
+import { AuthFormI } from '@root/core/types/global_config';
 
 interface Props {
   modalProps: CallbackProps
   renderLink?: boolean
   size?: 'small' | 'middle' | 'large' | undefined
-  form?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
+  form?: AuthFormI
 }
 
 function Handler({ modalProps, form }: Props) {
@@ -26,7 +27,7 @@ function Handler({ modalProps, form }: Props) {
     }
   }, [modalProps, alreadySignedIn, session])
 
-  function localOnSuccess() {
+  async function localOnSuccess() {
     info("Success", "If the email address you entered is associated with an account, you should receive an email shortly")
     modalProps.setOpen(false)
   }  

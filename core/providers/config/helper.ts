@@ -88,9 +88,14 @@ function getFooterConfig(footerBar: Partial<FooterBarI> | undefined): FooterBarI
 }
 
 function getAuthConfig(auth: AuthConfigI | undefined): AuthConfigI {
+  const { forgotPasswordForm, signUpForm, enabledSignUp, ...restAuth } = auth || {}
+  const forms = { forgotPasswordForm, signUpForm }
+
   return {
-    enablePasswordConfirmation: true,
-    enablePasswordReset: true, // We don't need it!
-    ...auth,
+    signInAfterCredentialsSignUp: false,
+    signInText: 'Sign in',
+    enabledSignUp: enabledSignUp !== undefined ? enabledSignUp && !!signUpForm : !!signUpForm,
+    ...forms,
+    ...restAuth,
   } as AuthConfigI
 }

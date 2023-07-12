@@ -4,13 +4,14 @@ import OAuthForms from './forms/oauth';
 import { Button, Divider } from 'antd';
 import Text from '@core/components/styled/texts';
 import { Div } from '@core/components/styled/blocks';
+import { AuthFormI, StateFnCallback } from '@root/core/types/global_config';
 
 interface Props {
   providers: Omit<AuthProvidersType, "credentials">
-  onError?: Function
-  onSuccess?: Function
   setSignIn: Function
-  form?: React.ComponentType<{ onSuccess: Function | undefined, onError: Function | undefined }>
+  form?: AuthFormI
+  onSuccess?: StateFnCallback
+  onError?: StateFnCallback
 }
 
 const SignUp = ({ providers, onError, onSuccess, setSignIn, form }: Props) => {
