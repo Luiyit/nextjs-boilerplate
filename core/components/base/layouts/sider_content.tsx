@@ -3,12 +3,10 @@ import { Layout } from 'antd';
 const { Content: AntContent } = Layout;
 import { ComponentProps } from '@interfaces/util'
 import { SiderContainer } from '@styled_comps/container'
-import { generateSiderContentStyle } from './styles'
+import { generateSiderContentStyle, SiderContentStyleProps } from './styles'
 import { useTheme } from '@core/providers/theme';
 
-interface ContentProps extends ComponentProps{
-  headerHidden?: boolean;
-  footerHidden?: boolean;
+interface ContentProps extends ComponentProps, SiderContentStyleProps{
 }
 
 const SiderContent: React.FC<ContentProps> = ({ children, ...rest }) => {

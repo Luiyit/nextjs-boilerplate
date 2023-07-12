@@ -1,7 +1,7 @@
 import React from 'react'
 import NextHead from 'next/head'
 import { ComponentProps } from '@interfaces/util'
-import brand from '@app/config/brand'
+import { useCoreConfig } from '@core/providers/config'
 
 interface HeadProps extends ComponentProps {
   title: string,
@@ -10,7 +10,10 @@ interface HeadProps extends ComponentProps {
 }
 
 const Head: React.FC<HeadProps> = ({ children, title, description, viewport }) => {
-  const pageTitle = `${brand.name} ${title ? ` | ${title}`: ''}`
+  const { brand } = useCoreConfig()
+  const titleParts = [brand.name || '', title].filter(Boolean)
+  const pageTitle = titleParts.join(' | ')
+
   return (
     <NextHead>
       <title>{ pageTitle }</title>

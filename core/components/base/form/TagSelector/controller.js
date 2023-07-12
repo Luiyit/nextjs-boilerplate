@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useFormContext, Controller } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 import TagSelector from '.';
-import { breakpoints } from '@app/config/layout';
+import { breakpoints } from '@interfaces/util.d';
 import Text from '@styled_comps/texts';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 

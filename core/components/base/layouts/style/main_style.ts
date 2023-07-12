@@ -1,8 +1,9 @@
-import lc, { breakpoints } from '@app/config/layout';
-import { createGlobalStyle  } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 import hexToRgba from 'hex-to-rgba';
+import { LayoutI } from '@interfaces/global_config';
+import { breakpoints } from '@interfaces/util.d';
 
-const mainLayoutStyle = createGlobalStyle<{ colorText: string }>`
+const mainLayoutStyle = createGlobalStyle<{ colorText: string, config: LayoutI }>`
   .ant-layout{
     position: relative;
 
@@ -19,17 +20,6 @@ const mainLayoutStyle = createGlobalStyle<{ colorText: string }>`
       }
 
       .ant-layout-header {
-        color: ${lc.header.fixed.textColor};
-
-        .ant-menu{
-          li{
-            color: ${hexToRgba(lc.header.fixed.textColor, '0.9')};
-
-            &:hover{
-              color: ${lc.header.fixed.textColor};
-            }
-          }
-        }
 
         &.ant-layout-header-dark{
           background: #141414;
@@ -47,33 +37,41 @@ const mainLayoutStyle = createGlobalStyle<{ colorText: string }>`
   
         .ant-menu{
           li{
-            line-height: ${lc.header.heightInPx};
+            line-height: ${({ config }) => config.header.heightInPx};
           }
         }
       }
     }
 
-    &.fixed-header{
-      .ant-layout-header{
-        height: ${lc.header.heightInPx};
-        line-height: initial;
-        padding-inline: 0;
-        width: 100%;
-        z-index: 1000;
-        position: fixed;
-        
-        .ant-menu{
-          border-bottom: none;
+    ${({ config }) =>
+    !!config.header.fixed &&
+    css`
+      &.fixed-header{
+        .ant-layout-header{
+          color: ${config.header.fixed.textColor};
+          z-index: ${config.header.fixed.zIndex};
+          position: fixed;
+          
+          .ant-menu{
+            border-bottom: none;
+
+            li{
+              color: ${hexToRgba(config.header.fixed.textColor, '0.9')};
+
+              &:hover{
+                color: ${config.header.fixed.textColor};
+              }
+            }
+          }
         }
       }
-    }
+    `}
 
     /* Not fixed (custom style) - Not dark */
     &:not(.fixed-header){
       &.ant-full-content-template{
         &:not(.ant-layout-header-dark){
           background: #fff;
-
           .ant-menu{
           }
         }

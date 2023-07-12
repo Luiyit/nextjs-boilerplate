@@ -1,14 +1,22 @@
-import lc, { breakpoints } from '@app/config/layout';
-import styled, { createGlobalStyle  } from 'styled-components';
-import hexToRgba from 'hex-to-rgba';
+import { createGlobalStyle  } from 'styled-components';
 
 const globalLayoutStyle = createGlobalStyle`
   .ant-layout{
+    
     .ant-layout-header {
+      background: white;
+      line-height: initial;
+      padding-inline: 0;
+      width: 100%;
+
       .ant-menu{
         background: transparent;
         border-bottom: none;
       }
+    }
+
+    .ant-layout-footer{
+      padding: 0;
     }
   }
 `

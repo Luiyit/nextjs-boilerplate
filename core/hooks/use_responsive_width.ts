@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
-import { breakpoints as bp } from '@app/config/layout'
-import type { BreakpointsType } from '@app/config/layout'
+import { breakpoints as bp } from '@interfaces/util.d';
+import type { BreakpointsType } from '@interfaces/util.d'
 
 export interface ResponsiveWidthProps {
   defaultValue: string

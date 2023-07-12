@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Text from '@styled_comps/texts';
-import { breakpoints } from '@app/config/layout';
+import { breakpoints } from '@interfaces/util.d';
 import { capitalize } from '@utils/text';
 
 import { types } from '../propTypes';

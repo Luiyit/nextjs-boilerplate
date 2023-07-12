@@ -3,7 +3,7 @@ import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { Div } from '@styled_comps/blocks';
 import { ComponentProps } from '@interfaces/util';
 import { Button, TablePaginationConfig } from 'antd';
-import { defaultPagination } from '@app/config/api';
+import { useCoreConfig } from '@root/core/providers/config';
 
 interface InfinityScrollProps extends ComponentProps{
   pagination: TablePaginationConfig,
@@ -14,7 +14,7 @@ interface InfinityScrollProps extends ComponentProps{
 }
 
 const InfinityScroll: React.FC<InfinityScrollProps> = ({ pagination, loading, setPagination, height, showMore, children }) => {
-  
+  const { pagination: defaultPagination } = useCoreConfig();
 
   const { current, pageSize, total } = useMemo(() => {
     return {
@@ -22,7 +22,7 @@ const InfinityScroll: React.FC<InfinityScrollProps> = ({ pagination, loading, se
       pageSize: pagination.pageSize || defaultPagination.pageSize,
       total: pagination.total || 0
     }
-  }, [pagination]);
+  }, [pagination, defaultPagination]);
 
   const itemsLoaded = current * pageSize;
 

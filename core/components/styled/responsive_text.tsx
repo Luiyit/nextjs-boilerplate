@@ -1,7 +1,7 @@
 import React from 'react'
 import BaseText from '@styled_comps/texts'
 import styled from 'styled-components'
-import { breakpoints as bp } from '@app/config/layout'
+import { breakpoints as bp } from '@interfaces/util.d';
 import { ComponentProps } from '@core/types/util'
 import { TextI } from '@styled_comps/interfaces';
 

@@ -1,28 +1,29 @@
 import React from 'react';
 import { Layout } from 'antd';
-import lc from '@app/config/layout';
 const { Footer: AntFooter } = Layout;
 import { ComponentProps } from '@interfaces/util'
 import { Div } from '@styled_comps/blocks'
-import { footerStyle } from './styles'
 import Container from '@styled_comps/container'
 import FooterBar from './footer_bar';
+import { FooterBarI } from '@root/core/types/global_config';
 
 interface FooterProps extends ComponentProps{
   useContainer?: boolean;
+  config: FooterBarI;
 }
 
-const Footer: React.FC<FooterProps> = ({ useContainer }) => {
+// TODO: Rename to FooterBar
+const Footer: React.FC<FooterProps> = ({ children, useContainer, className, config }) => {
   const HeaderContainer = useContainer ? Container : Div;
+
   return (
     <React.Fragment>
-      {lc.footer.useFooterWithSider && (
-        <AntFooter style={footerStyle}>
-          <HeaderContainer height="100%" padding="0 15px">
-            <FooterBar />
-          </HeaderContainer>          
-        </AntFooter>
-      )}
+      <AntFooter className={className}>
+        <HeaderContainer height="100%" padding="0 15px">
+          { children }
+          <FooterBar height={ config.heightInPx }/>
+        </HeaderContainer>          
+      </AntFooter>
     </React.Fragment>
   )
 }

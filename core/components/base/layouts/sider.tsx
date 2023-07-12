@@ -2,40 +2,41 @@ import React, { useState } from 'react';
 import { Layout } from 'antd';
 const { Sider: AntSider } = Layout;
 import { ComponentProps } from '@interfaces/util'
-import { siderStyle } from './styles'
-import lc from '@app/config/layout';
 import Menu from '@base_comps/menu'
 import { Div } from '@styled_comps/blocks';
 import Link from 'next/link'
 import { MenuType } from '@core/types/menu';
 import { useTheme } from '@core/providers/theme';
+import { SidebarConfigI } from '@root/core/types/global_config';
 
 interface SiderProps extends ComponentProps{
   menuItems?: MenuType[]
-  showLogo?: boolean
   logo: React.ReactNode
   favIcon: React.ReactNode
+  config: SidebarConfigI
 }
 
-const Sider: React.FC<SiderProps> = ({ menuItems, showLogo, logo, favIcon }) => {
+const Sider: React.FC<SiderProps> = ({ menuItems, logo, favIcon, config }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { dark } = useTheme();
+  const { showLogo } = config
+
+  console.log(config)
 
   return (
     <React.Fragment>
       <AntSider 
-        style={siderStyle} 
-        width={lc.sidebar.width}
+        width={config.width}
         collapsible 
         collapsed={collapsed} 
         onCollapse={(value) => setCollapsed(value)}
         breakpoint="lg"
-        collapsedWidth={lc.sidebar.collapsedWidth}
+        collapsedWidth={config.collapsedWidth}
         onBreakpoint={(broken) => {}}
         theme={ dark ? 'dark': 'light' }
       >
         {showLogo && (
-          <Div padding='5px' textAlign='center' height={`${lc.header.height}px`}>
+          <Div padding='5px' textAlign='center' height={`${config.logoHeight}px`}>
             <Link className='logo-link' href='/'>
               { logo }
               { favIcon }

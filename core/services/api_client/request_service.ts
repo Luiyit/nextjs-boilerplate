@@ -4,9 +4,8 @@ import Axios, { ReqProps } from './axios';
 import { NextApiRequest } from 'next';
 import { AxiosRequestConfig } from 'axios';
 import { ApiResponse } from "@core/services/api_client/types";
-
-import { defaultPagination } from '@config/api'
 import ExternalClient from '@app/services/base/external_client';
+import config from '@app/config/core/index'
 
 // Export used types
 export type { IHash, PaginationType, NextApiRequest, AxiosRequestConfig }
@@ -75,8 +74,8 @@ export default class RequestService<DataType extends PageableType> {
     const { current, page_size: pageSize } = query || {};
 
     return {
-      current: Number(current) || defaultPagination?.current || 1,
-      pageSize: Number(pageSize) || defaultPagination?.pageSize || 1,
+      current: Number(current) || config.pagination?.current  || 1,
+      pageSize: Number(pageSize) || config.pagination?.pageSize || 12,
     } as PaginationType;
   }
 }

@@ -14,67 +14,66 @@ import Container from '@styled_comps/container'
 import { useTheme } from '@core/providers/theme';
 import hexToRgba from 'hex-to-rgba';
 import Text from '@styled_comps/texts';
-
-import lc from '@app/config/layout';
 import SignUpForm from '@app_comps/forms/auth/sign_up_form';
 import ForgotPasswordForm from '@app_comps/forms/auth/forgot_password';
+import { HeaderConfigI } from '@root/core/types/global_config';
 
 interface HeaderProps extends ComponentProps{
   menuItems?: MenuType[],
   profileMenuItems?: MenuType[],
-  showLogo?: boolean,
   menuTheme?: AntMenuProps['theme'],
-  useContainer?: boolean,
-  disableDarkMode?: boolean;
   logo: React.ReactNode
   favIcon: React.ReactNode
-  fixed?: boolean
+  config: HeaderConfigI
 }
 
-const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, showLogo, menuTheme, useContainer, disableDarkMode, logo, favIcon, fixed }) => {
-  const baseOpacity = lc.header.fixed?.baseOpacity || 1;
+const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, menuTheme, logo, favIcon, config }) => {
+  
+  const baseOpacity = config.fixed?.baseOpacity || 1;
   const [opacity, setOpacity] = useState<number>(baseOpacity)
   const opacityRef = React.useRef(opacity);
-  const HeaderContainer = useContainer ? Container : Div;
+  const HeaderContainer = config.useContainer ? Container : Div;
 
   const { dark } = useTheme();
-  const darkTheme = dark && !disableDarkMode
+  const darkTheme = dark && !config.disableDarkMode
 
   const listenScrollEvent = () => {
 
+    if(!config.fixed) return;
     /**
      * DEV NOTE:
      * Normalize scroll position to a value between baseOpacity and opacityOnScroll
      * maxScrollY = 300
      * value = (scrollY / maxScrollY) * (opacityOnScroll - baseOpacity) + baseOpacity
      */
-    const scrollOpacity = Math.min((window.scrollY / 300), 1) * (lc.header.fixed.opacityOnScroll - lc.header.fixed.baseOpacity) + lc.header.fixed.baseOpacity;
+    const scrollOpacity = Math.min((window.scrollY / 300), 1) * (config.fixed.opacityOnScroll - config.fixed.baseOpacity) + config.fixed.baseOpacity;
 
     // DEV NOTE: Reduce extra renders updating opacity when it reaches the max value
-    if(!lc.header.fixed.bgColor || (scrollOpacity >= lc.header.fixed.opacityOnScroll && opacityRef.current >= lc.header.fixed.opacityOnScroll)) return;
+    if(!config.fixed.bgColor || (scrollOpacity >= config.fixed.opacityOnScroll && opacityRef.current >= config.fixed.opacityOnScroll)) return;
 
     setOpacity(scrollOpacity)
     opacityRef.current = scrollOpacity;
   }
   
   useEffect(() => { 
-    if (!fixed) return;
+    if (!config.fixed) return;
 
     window.addEventListener('scroll', listenScrollEvent)
     return () => window.removeEventListener('scroll', listenScrollEvent)
   }, [])
 
   const dynamicStyle = {
-    ...(fixed ? { backgroundColor: hexToRgba(lc.header.fixed.bgColor, opacity) } : {})
+    ...(config.fixed ? { backgroundColor: hexToRgba(config.fixed.bgColor, opacity) } : {}),
+    height: config.heightInPx,
   }
 
   return (
     <AntHeader className={`ant-layout-header-${darkTheme ? 'dark': 'light'}`} style={dynamicStyle}>
       <HeaderContainer className="header-container">
 
-        <Div display={displayTypes.flex} align={alignTypes.center} height={lc.header.heightInPx} justifyContent='space-between'>
+        <Div display={displayTypes.flex} align={alignTypes.center} height={config.heightInPx} justifyContent='space-between'>
           <Div className="header-left">
-            {showLogo && (
+            {config.showLogo && (
               <Div className='header-logo-container' padding='0 15px' textAlign='center' minWidth="80px">
                 <Link className='logo-link' href='/' style={{display: "inline-block", fontSize: 0}}>
                   { logo }

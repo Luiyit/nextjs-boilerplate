@@ -10,15 +10,12 @@ import { generateMenu } from '@core/utils/menu'
 import { getBrandAssets } from '@core/utils/header'
 import { MenuType, MenuGeneratorType } from "@core/types/menu";
 import { useSession } from '@core/providers/session';
-import lc from '@app/config/layout';
 import { theme } from 'antd'
 const { useToken } = theme;
-import Image from 'next/image'
-import brand from '@app/config/brand';
 import { useTheme } from '@root/core/providers/theme';
+import { useCoreConfig } from '@root/core/providers/config';
 
 interface SiderLayoutProps extends ComponentProps{
-  template?: 'full-vav' | 'full-sider'
   siderMenu?: MenuType[] | MenuGeneratorType
   headerMenu?: MenuType[] | MenuGeneratorType
   profileMenu?: MenuType[] | MenuGeneratorType
@@ -26,63 +23,89 @@ interface SiderLayoutProps extends ComponentProps{
   hideFooter?: boolean
 }
 
-const SiderLayout: React.FC<SiderLayoutProps> = ({ children, siderMenu, headerMenu, profileMenu, template = 'full-vav', hideHeader, hideFooter }) => {
+const SiderLayout: React.FC<SiderLayoutProps> = ({ children, siderMenu, headerMenu, profileMenu, hideHeader, hideFooter }) => {
 
-  const useFullSider = template === 'full-sider'
   const { dark } = useTheme()
   const { user } = useSession()
   const { token } = useToken()
-  
+  const config = useCoreConfig()
+  const { header, footerBar, template, sidebar } = config.siderLayout
+  const useFullSider = template === 'full-sider'
+
   const siderMenuItems = generateMenu(siderMenu, user);
   const headerMenuItems = generateMenu(headerMenu, user);
   const profileMenuItems = generateMenu(profileMenu, user);
   
-  const { logo, favIcon} = getBrandAssets("sider", dark)
+  const { logo, favIcon} = getBrandAssets("sider", dark, config)
 
   return (
     <React.Fragment>
-      <SiderLayoutStyle colorText={token.colorText} />
+      <SiderLayoutStyle colorText={token.colorText} config={config.siderLayout} />
       <Layout className={`ant-${template}-template`}>
         {!useFullSider && !hideHeader && (
           <Header 
             menuItems={headerMenuItems} 
             profileMenuItems={profileMenuItems} 
-            useContainer={lc.header.useContainerOnSider} 
             logo={logo}
             favIcon={favIcon}
-            showLogo 
+            config={header}
           />
         )}
-        {useFullSider && <Sider 
-          menuItems={siderMenuItems} 
-          logo={logo}
-          favIcon={favIcon}
-          showLogo 
-        />}
+
+        {useFullSider && (
+          <Sider 
+            menuItems={siderMenuItems} 
+            logo={logo}
+            favIcon={favIcon}
+            config={sidebar}
+          />
+        )}
 
         <Layout>
           {useFullSider && !hideHeader && (
             <Header 
               menuItems={headerMenuItems} 
               profileMenuItems={profileMenuItems} 
-              useContainer={lc.header.useContainerOnSider} 
               logo={logo}
               favIcon={favIcon}
+              config={header}
             />
           )}
-          {!useFullSider && <Sider 
-            menuItems={siderMenuItems} 
-            logo={logo}
-            favIcon={favIcon}
-          />}
 
-          <Content headerHidden={hideHeader} footerHidden={hideFooter}>
+          {!useFullSider && (
+            <Sider 
+              menuItems={siderMenuItems} 
+              logo={logo}
+              favIcon={favIcon}
+              config={sidebar}
+            />
+          )}
+
+          <Content 
+            headerHidden={hideHeader} 
+            footerHidden={hideFooter}
+            headerHeight={header.height}
+            footerHeight={footerBar.height}
+            useFooter={footerBar.enabled}
+          >
             { children }
           </Content>
 
-          {useFullSider && !hideFooter && <Footer />}
+          {useFullSider && !hideFooter && (
+            <Footer 
+              useContainer={footerBar.useContainer} 
+              config={footerBar}
+            />
+          )}
         </Layout>
-        {!useFullSider && !hideFooter && <Footer />}
+
+        {!useFullSider && !hideFooter && (
+          <Footer 
+            useContainer={footerBar.useContainer} 
+            config={footerBar}
+          />
+        )}
+
       </Layout>
     </React.Fragment>
   )

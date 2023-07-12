@@ -1,7 +1,8 @@
-import lc, { breakpoints } from '@app/config/layout';
+import { breakpoints } from '@interfaces/util.d';
 import { createGlobalStyle  } from 'styled-components';
+import { SiderLayoutI } from '@interfaces/global_config';
 
-const siderLayoutStyle = createGlobalStyle<{ colorText: string }>`
+const siderLayoutStyle = createGlobalStyle<{ colorText: string, config: SiderLayoutI }>`
   .ant-layout{
     position: relative;
 
@@ -62,7 +63,7 @@ const siderLayoutStyle = createGlobalStyle<{ colorText: string }>`
       .ant-layout{
         .ant-layout-content{
           @media (max-width: ${breakpoints.lg}){
-            padding-left: ${lc.sidebar.collapsedWidthInPx};
+            padding-left: ${({ config }) => config.sidebar.collapsedWidthInPx};
           }
         }
       }
@@ -77,7 +78,7 @@ const siderLayoutStyle = createGlobalStyle<{ colorText: string }>`
 
       .ant-menu{
         li{
-          line-height: ${lc.header.heightInPx};
+          line-height: ${({ config }) => config.header.heightInPx};
         }
       }
       
@@ -98,7 +99,7 @@ const siderLayoutStyle = createGlobalStyle<{ colorText: string }>`
 
         .header-logo-container{
           @media (min-width: ${breakpoints.lg}){
-            width: ${lc.sidebar.widthInPx};
+            width: ${({ config }) => config.sidebar.widthInPx};
           }
   
           .main-fav-logo{ display: none; }
@@ -116,7 +117,7 @@ const siderLayoutStyle = createGlobalStyle<{ colorText: string }>`
       }
       .ant-layout{
         @media (max-width: ${breakpoints.lg}){
-          padding-left: ${lc.sidebar.collapsedWidthInPx};
+          padding-left: ${({ config }) => config.sidebar.collapsedWidthInPx};
         }
       }
     }

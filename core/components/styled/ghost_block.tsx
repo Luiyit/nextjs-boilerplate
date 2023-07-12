@@ -1,6 +1,6 @@
 import { ComponentProps } from '@core/types/util';
 import React, { useEffect, useState } from 'react'
-import { breakpoints as bp } from '@app/config/layout'
+import { breakpoints as bp } from '@interfaces/util.d';
 
 interface Props extends ComponentProps {
   displayFrom?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'

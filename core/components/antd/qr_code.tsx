@@ -1,8 +1,5 @@
 import React from 'react'
 import { QRCode } from 'antd';
-import brand from '@app/config/brand';
-
-// TODO: Check a better way to access to @app stuff. Is it ok?
 
 export interface QrCodeProps {
   value: string
@@ -10,6 +7,7 @@ export interface QrCodeProps {
   iconSize?: number
   icon?: string
 }
+
 const QrCode = ({ size=300, iconSize=50, icon, ...rest }: QrCodeProps) => {
   return (
     <QRCode

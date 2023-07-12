@@ -4,9 +4,9 @@ import NextJsClient from '@app/services/base/nextjs_client';
 export type { ColumnsType } from 'antd/es/table'
 import { ApiResponse } from '@services/api_client/types';
 import useOnChange from '@core/hooks/use_on_change';
-import { defaultPagination } from '@app/config/api';
 import { IHash } from '@core/types/util';
 var changeCase = require('change-object-case');
+import { useCoreConfig } from '@root/core/providers/config';
 
 export type ReasonType = 'delete' | 'refresh';
 export interface FetcherResponseType<DataType> {
@@ -45,15 +45,20 @@ const UseListFetcher = <DataType>({
   keepAllPages, 
   computeTotalItems, 
   setRef, 
-  pageSize: customSize = defaultPagination.pageSize, 
+  pageSize: customSize, 
   params = {},
   logData
 }: Props) => {
 
+  const { pagination: defaultPagination } = useCoreConfig();
+  
   const [data, setData] = useState<DataType[]>([]);
   const [error, setError] = useState<any>();
   const [loading, setLoading] = useState(false);
-  const [pagination, setPagination] = useState<FetcherPaginationConfig>({ current: 1, pageSize: customSize });
+  const [pagination, setPagination] = useState<FetcherPaginationConfig>({ 
+    current: 1, 
+    pageSize: customSize || defaultPagination.pageSize 
+  });
   const maxPage = useRef(0)
   const { current, pageSize } = pagination;
  

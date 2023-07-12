@@ -1,31 +1,32 @@
 import React from 'react';
-import { Layout, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 import { Flex } from '@styled_comps/blocks'
-import { useTheme } from '@core/providers/theme';
 import Text from '@styled_comps/texts';
-import brand from '@app/config/brand';
 import { MailOutlined } from '@ant-design/icons';
 import GhostBlock from '@styled_comps/ghost_block';
-import lc from '@app/config/layout';
+import { useCoreConfig } from '@core/providers/config'
 
-const FooterBar = () => {
-  const { token } = useTheme()
+const FooterBar = ({ height }: { height: string }) => {
+  const { brand } = useCoreConfig()
+
   return (
-    <Flex alignItems='center' justifyContent="space-between" height={lc.footer.heightInPx}>
+    <Flex alignItems='center' justifyContent="space-between" height={height}>
       <Text padding="5px 0">
-        © Copyright 2023 {brand.name} All rights reserved.
+        © Copyright 2023 {brand.name || ''} All rights reserved.
       </Text>
-      <Text padding="5px 0">
-        <GhostBlock displayUntil='md'>
-          <Tooltip placement="top" title={brand.contactEmail}>
-            <MailOutlined />
-          </Tooltip >
-        </GhostBlock>
+      {brand.contactEmail && (
+        <Text padding="5px 0">
+          <GhostBlock displayUntil='md'>
+            <Tooltip placement="top" title={brand.contactEmail}>
+              <MailOutlined />
+            </Tooltip >
+          </GhostBlock>
 
-        <GhostBlock displayFrom='md'>
-          { brand.contactEmail }
-        </GhostBlock>
-      </Text>
+          <GhostBlock displayFrom='md'>
+            { brand.contactEmail }
+          </GhostBlock>
+        </Text>
+      )}
     </Flex>
   )
 }
