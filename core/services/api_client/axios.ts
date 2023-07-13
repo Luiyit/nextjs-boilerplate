@@ -5,6 +5,7 @@ import  { AxiosError } from 'axios';
 import { Session } from 'next-auth';
 import { IHash } from './request_service';
 import { JWT } from 'next-auth/jwt';
+import FormData from 'form-data'
 
 export interface ApiClientProps{
 	apiUrl: string;
@@ -89,6 +90,11 @@ export default class Axios {
 		const putConfig = await this.generateConfig(config);
 		return await this.call<DataType>(this.axios.put, [url, params, putConfig]);
 	}
+	
+	async patch<DataType>(url: string, params: any = {}, config: AxiosRequestConfig = {}): Promise<DataType>{
+		const putConfig = await this.generateConfig(config);
+		return await this.call<DataType>(this.axios.patch, [url, params, putConfig]);
+	}
 
 	async delete<DataType>(url: string, config: AxiosRequestConfig = {}): Promise<DataType>{
 		const deleteConfig = await this.generateConfig(config);
@@ -164,7 +170,9 @@ export default class Axios {
 				params: changeCase.snakeKeys(config.params || {}, { recursive: true, arrayRecursive: true })
 			};
 
-			if(['post', 'put', 'patch'].includes(config.method)) return {
+			console.log("=========> config.data")
+			const isFormData = config.data instanceof FormData;
+			if(['post', 'put', 'patch'].includes(config.method) && !isFormData) return {
 				...config,
 				data: changeCase.snakeKeys(config.data || {}, { recursive: true, arrayRecursive: true })
 			};

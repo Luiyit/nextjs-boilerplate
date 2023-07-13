@@ -4,6 +4,7 @@ const actionsMethods = {
   create: 'POST',
   update: 'PUT',
   delete: 'DELETE',
+  patch: 'PATCH'
 }
 
 export { actionsMethods }

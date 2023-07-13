@@ -13,7 +13,8 @@ import config from '@app/config/core/index'
 export type { IHash, PaginationType, NextApiRequest, AxiosRequestConfig }
 
 // TODO: Fix me! Not all services need that interface extends of PageableType
-export default class RequestService<DataType extends PageableType> {
+// DONE!!??
+export default class RequestService<DataType extends PageableType | undefined> {
 
   protected client: Axios;
 
@@ -65,6 +66,10 @@ export default class RequestService<DataType extends PageableType> {
   
   protected async _delete(url: string, config: AxiosRequestConfig = {}): Promise<DataType> {
     return await this.client.delete<DataType>(url, config);
+  }
+  
+  protected async _patch(url: string, payload: any, config: AxiosRequestConfig = {}): Promise<DataType> {
+    return await this.client.patch<DataType>(url, payload, config);
   }
 
   /**

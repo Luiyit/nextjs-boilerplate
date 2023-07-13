@@ -54,8 +54,8 @@ export { default as FloatLabel } from './FloatLabel';
 export { default as Label } from './Label';
 
 // Typescript
-export { default as FileUpload } from './upload';
-export { default as FileUploadController } from './upload/controller';
+// export { default as FileUpload } from './upload';
+// export { default as FileUploadController } from './upload/controller';
 
 export const Form = styled.form`
   // Overriding ant styles

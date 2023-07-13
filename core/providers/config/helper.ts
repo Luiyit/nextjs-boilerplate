@@ -1,9 +1,9 @@
-import type { ProviderValueI, CoreConfig, PaginationI, BrandI, LayoutI, HeaderConfigI, FooterBarI, SidebarConfigI, AuthConfigI, OptionalLayoutI } from '../../types/global_config'
+import type { ProviderValueI, CoreConfig, PaginationI, BrandI, LayoutI, HeaderConfigI, FooterBarI, SidebarConfigI, AuthConfigI, OptionalLayoutI, CurrentUserI } from '../../types/global_config'
 import { numberToPixels } from '@core/utils/css_units'
 
 export default function generateConfig(baseConfig: CoreConfig | undefined | null): ProviderValueI {
 
-  const { pagination, brand, siderLayout, mainLayout, auth } = baseConfig || {}
+  const { pagination, brand, siderLayout, mainLayout, auth, currentUser } = baseConfig || {}
   const { sidebar, ...restSiderLayout } = siderLayout || {};
 
   return {
@@ -16,6 +16,7 @@ export default function generateConfig(baseConfig: CoreConfig | undefined | null
     },
     mainLayout: getLayoutConfig(mainLayout),
     auth: getAuthConfig(auth),
+    currentUser: getCurrentUserConfig(currentUser),
   }
 }
 
@@ -99,4 +100,10 @@ function getAuthConfig(auth: AuthConfigI | undefined): AuthConfigI {
     ...forms,
     ...restAuth,
   } as AuthConfigI
+}
+
+function getCurrentUserConfig(currentUser: CurrentUserI | undefined): CurrentUserI {
+  return {
+    ...currentUser,
+  }
 }

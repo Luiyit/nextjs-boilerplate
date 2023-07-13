@@ -95,7 +95,6 @@ const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, menuTheme,
               }} 
               signupForm={SignUpForm}
               forgotPasswordForm={ForgotPasswordForm}
-              buttonLabel={<Text fontWeight="700">Sign in</Text>}
             />
           </Div>
         </Div>

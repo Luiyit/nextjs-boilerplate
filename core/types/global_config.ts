@@ -1,8 +1,13 @@
 import { LayoutType } from '@interfaces/util';
+import { Session } from 'next-auth';
 
 export interface PaginationI {
   current: number,
   pageSize: number,
+}
+
+export interface CurrentUserI {
+  imageUrl?: (user: Session["user"]) => string | undefined,
 }
 
 export interface BrandI {
@@ -85,6 +90,7 @@ export interface ProviderValueI {
   siderLayout: SiderLayoutI
   mainLayout: LayoutI
   auth: AuthConfigI
+  currentUser: CurrentUserI
 }
 
 export type OptionalLayoutI = {
@@ -107,4 +113,5 @@ export interface CoreConfig {
   siderLayout?: OptionalSiderLayoutI
   mainLayout?: OptionalLayoutI
   auth?: Partial<AuthConfigI>
+  currentUser?: Partial<CurrentUserI>
 }
