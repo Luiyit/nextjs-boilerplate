@@ -21,6 +21,7 @@ const globalLayoutStyle = createGlobalStyle`
 
   }
   
+  .ant-logo-uploader.ant-upload-wrapper.ant-upload-picture-card-wrapper,
   .ant-avatar-uploader.ant-upload-wrapper.ant-upload-picture-circle-wrapper{
     .ant-upload-list{
       

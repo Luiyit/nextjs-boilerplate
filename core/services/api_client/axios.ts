@@ -96,9 +96,10 @@ export default class Axios {
 		return await this.call<DataType>(this.axios.patch, [url, params, putConfig]);
 	}
 
-	async delete<DataType>(url: string, config: AxiosRequestConfig = {}): Promise<DataType>{
+	async delete<DataType>(url: string, params: any = {}, config: AxiosRequestConfig = {}): Promise<DataType>{
+		const query = this.getQueryString(params);
 		const deleteConfig = await this.generateConfig(config);
-		return await this.call<DataType>(this.axios.delete, [url, deleteConfig]);
+		return await this.call<DataType>(this.axios.delete, [`${url}?${query}`, deleteConfig]);
 	}
 
 	call<DataType>(callback: Function, params: any): Promise<DataType>{
@@ -165,12 +166,11 @@ export default class Axios {
 	{
 		axiosInstance.interceptors.request.use(function (config: any) 
 		{
-			if(config.method === 'get') return {
+			if(['get', 'delete'].includes(config.method)) return {
 				...config,
 				params: changeCase.snakeKeys(config.params || {}, { recursive: true, arrayRecursive: true })
 			};
 
-			console.log("=========> config.data")
 			const isFormData = config.data instanceof FormData;
 			if(['post', 'put', 'patch'].includes(config.method) && !isFormData) return {
 				...config,
