@@ -23,8 +23,7 @@ function Handler({ modalProps, signupForm, forgotPasswordForm, starMode='signin'
   const [providers, setProviders] = useState<AuthProvidersType | null>(null)
   const { session, onError, onSuccess, alreadySignedIn } = useSignin({ redirectTo: "/" })
   const { auth } = useCoreConfig()
-  console.log(auth)
-  
+    
   useEffect(() => {
     (async () => {
       const providers = await getProviders()

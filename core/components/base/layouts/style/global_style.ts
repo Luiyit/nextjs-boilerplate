@@ -20,21 +20,6 @@ const globalLayoutStyle = createGlobalStyle`
     }
 
   }
-  
-  .ant-logo-uploader.ant-upload-wrapper.ant-upload-picture-card-wrapper,
-  .ant-avatar-uploader.ant-upload-wrapper.ant-upload-picture-circle-wrapper{
-    .ant-upload-list{
-      
-      .ant-upload.ant-upload-select,
-      .ant-upload-list-item-container{
-        width: 200px;
-        height: 200px;
-      }
-    }
-  }  
-  
-  .ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container{
-  }
 `
 
 export default globalLayoutStyle;

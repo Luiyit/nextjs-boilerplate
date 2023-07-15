@@ -3,7 +3,7 @@ import Label from '../../base/form/Label';
 import { Modal, Upload as AntUpload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { getBase64 } from '@core/utils/file'
-import ImgCrop from 'antd-img-crop';
+import ImgCrop, { ImgCropProps } from 'antd-img-crop';
 
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadChangeParam, UploadFile } from 'antd/es/upload/interface';
@@ -18,6 +18,7 @@ export interface FileUploadProps<ResponseType = any> extends UploadProps{
   className?: string;
   defaultValue?: UploadFile[];
   method?: UploadProps['method'];
+  imgCropProps?: Omit<ImgCropProps, "children">;
 }
 
 function FileUpload<ResponseType>({ 
@@ -29,6 +30,7 @@ function FileUpload<ResponseType>({
   className, 
   defaultValue,
   onChange,
+  imgCropProps,
   ...rest
 }: FileUploadProps<ResponseType>){
   
@@ -48,7 +50,6 @@ function FileUpload<ResponseType>({
   };
 
   const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile<ResponseType>>) => {
-    console.log("ON CHANGE")
     const { fileList } = info;
     setFileList(fileList)
     onChange?.(info)
@@ -67,7 +68,7 @@ function FileUpload<ResponseType>({
         <Label label={label} name={name} />
       )}
 
-      <ImgCrop aspect={1}>
+      <ImgCrop {...imgCropProps}>
         <AntUpload
           className={className}
           action={uploadUrl}

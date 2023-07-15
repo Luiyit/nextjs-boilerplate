@@ -13,7 +13,6 @@ import { MenuType } from '@core/types/menu';
 import Container from '@styled_comps/container'
 import { useTheme } from '@core/providers/theme';
 import hexToRgba from 'hex-to-rgba';
-import Text from '@styled_comps/texts';
 import SignUpForm from '@app_comps/forms/auth/sign_up_form';
 import ForgotPasswordForm from '@app_comps/forms/auth/forgot_password';
 import { HeaderConfigI } from '@root/core/types/global_config';

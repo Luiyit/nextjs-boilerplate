@@ -63,7 +63,7 @@ const UseListFetcher = <DataType>({
   const { current, pageSize } = pagination;
  
   useEffect(() => {
-    if(logData) console.log(`${ sourceUrl }`, data, params, pagination)
+    if(logData) console.info(`${ sourceUrl }`, data, params, pagination)
   }, [sourceUrl, logData, data, params, pagination])
 
   const fetchData = useCallback(async (resetPages = false) => {

@@ -21,8 +21,6 @@ const Sider: React.FC<SiderProps> = ({ menuItems, logo, favIcon, config }) => {
   const { dark } = useTheme();
   const { showLogo } = config
 
-  console.log(config)
-
   return (
     <React.Fragment>
       <AntSider 

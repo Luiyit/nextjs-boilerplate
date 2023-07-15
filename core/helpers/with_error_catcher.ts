@@ -61,7 +61,6 @@ export default async function withErrorCatcher({ res, req, callback }: ParamsTyp
   try {
     await callback(req, res)    
   } catch (_) {
-    console.log("ERROR: ", _)
     const error = withError(_);
     res.status(error.status).json(error) 
   }
