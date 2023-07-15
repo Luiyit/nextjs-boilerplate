@@ -3,7 +3,7 @@ import { SignInResponse, useSession } from "next-auth/react"
 import { useNotifier } from '@core/providers/notifier';
 import { useRouter } from 'next/router';
 
-// TODO: Generic messages
+// TODO: Generic messages from the app, not fixed here!
 const useSignin = (prams: { redirectTo?: string } = {}) => {
   const { redirectTo } = prams
   const session = useSession()

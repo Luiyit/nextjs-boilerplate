@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Radio, Space } from 'antd';
 
-// TODO: Check Radio
 export default function RadioControl(props) {
   const { options, field, fieldState, ...rest } = props;
 

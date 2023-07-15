@@ -2,11 +2,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import type { ApiError } from '@services/api_client/types.d'
 import { AxiosError } from 'axios'
 
-// TODO type callback
 type ParamsType = {
   req: NextApiRequest, 
   res: NextApiResponse<ApiError | Error>, 
-  callback: Function,
+  callback: (req: NextApiRequest, res: NextApiResponse) => Promise<void>
 }
 
 type ErrorWithMessage = {

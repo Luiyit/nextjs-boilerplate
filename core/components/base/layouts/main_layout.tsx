@@ -57,7 +57,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, headerMenu, profileMe
           { children }
         </Content>
 
-        {/* TODO: Check hideFooter */}
         {footerBar.enabled && (
           <Footer 
             useContainer={footerBar.useContainer} 

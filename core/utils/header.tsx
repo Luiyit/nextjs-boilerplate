@@ -2,7 +2,6 @@ import React from 'react';
 import { LayoutType } from '../types/util';
 import { ProviderValueI, HeaderConfigI } from '../types/global_config';
 
-// TODO: Move to another place!!?
 function getHeaderConfig(layout: LayoutType, config: ProviderValueI): HeaderConfigI {
   if(layout === 'main')
     return config.mainLayout.header

@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { TablePaginationConfig } from 'antd/es/table';
-import NextJsClient from '@app/services/base/nextjs_client';
 export type { ColumnsType } from 'antd/es/table'
 import { ApiResponse } from '@services/api_client/types';
 import useOnChange from '@core/hooks/use_on_change';
 import { IHash } from '@core/types/util';
 var changeCase = require('change-object-case');
 import { useCoreConfig } from '@root/core/providers/config';
+
+// TODO: We should move it to core!?
+import NextJsClient from '@app/services/base/nextjs_client';
 
 export type ReasonType = 'delete' | 'refresh';
 export interface FetcherResponseType<DataType> {
@@ -100,7 +102,10 @@ const UseListFetcher = <DataType>({
   }, [sourceUrl, pagination, current, params, data, keepAllPages, computeTotalItems]);
 
   const refetchData = useCallback((reason: ReasonType = 'delete') => {
-    // TODO: handler when keepAllPages is true
+    /**
+     * TODO: handler when keepAllPages is true, 
+     * Maybe the solution is disable refetchData when keepAllPages is true
+     */   
     
     if(reason === 'refresh') fetchData(true);
 

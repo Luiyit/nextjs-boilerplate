@@ -5,15 +5,12 @@ import { NextApiRequest } from 'next';
 import { AxiosRequestConfig } from 'axios';
 import { ApiResponse } from "@core/services/api_client/types";
 
-// TODO: fix this imports
+// TODO: We should move it to core!?
 import ExternalClient from '@app/services/base/external_client';
-import config from '@app/config/core/index'
 
 // Export used types
 export type { IHash, PaginationType, NextApiRequest, AxiosRequestConfig }
 
-// TODO: Fix me! Not all services need that interface extends of PageableType
-// DONE!!??
 export default class RequestService<DataType extends PageableType | undefined> {
 
   protected client: Axios;
@@ -52,14 +49,10 @@ export default class RequestService<DataType extends PageableType | undefined> {
     return await this.client.get<DataType>(url, params, config);
   }
 
-  // TODO: Sometimes the Response dataTYpe is different than payload
-  // Fix: pass another generic to the function _create<payload_type> or set like any
   protected async _create(url: string, payload: any, config: AxiosRequestConfig = {}): Promise<DataType> {
     return await this.client.post<DataType>(url, payload, config);
   }
  
-  // TODO: Sometimes the Response dataTYpe is different than payload
-  // Fix: pass another generic to the function _create<payload_type> or set like any
   protected async _update(url: string, payload: any, config: AxiosRequestConfig = {}): Promise<DataType> {
     return await this.client.put<DataType>(url, payload, config);
   }
@@ -81,9 +74,13 @@ export default class RequestService<DataType extends PageableType | undefined> {
   static getPagination(query?: IHash<string> | undefined): PaginationType {
     const { current, page_size: pageSize } = query || {};
 
+    /**
+     * *INFO: Probably if nothing is sent, should be return undefined, but
+     * *it could be insecure and a good practice should be incentive the  use of default pagination (like now!)
+     */
     return {
-      current: Number(current) || config.pagination?.current  || 1,
-      pageSize: Number(pageSize) || config.pagination?.pageSize || 12,
+      current: Number(current) || 1,
+      pageSize: Number(pageSize) || 12,
     } as PaginationType;
   }
 }

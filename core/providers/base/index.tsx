@@ -4,17 +4,17 @@ import type { CoreConfig } from '../../types/global_config'
 import ConfigProvider from '@core/providers/config'
 import ThemeProvider from '@core/providers/theme'
 import NotifierProvider from '@core/providers/notifier'
+import { ThemeConfig } from 'antd';
 
 interface Props extends ComponentProps {
   config?: CoreConfig | undefined | null;
+  theme?: ThemeConfig
 }
 
-// TODO: Should be inside providers folder!?
-const BaseCoreProviders: FC<Props> = ({ children, config }) => {
+const BaseCoreProviders: FC<Props> = ({ children, config, theme }) => {
   return (
     <ConfigProvider config={config} >
-      {/* disableDarkMode={useMainLayout} */}
-      <ThemeProvider>
+      <ThemeProvider theme={theme}>
         <NotifierProvider>
           { children }
         </NotifierProvider>

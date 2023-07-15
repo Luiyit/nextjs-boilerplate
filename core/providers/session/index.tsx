@@ -6,6 +6,14 @@ import { Session } from 'next-auth';
 import { useSession as NextAuthUseSession, signIn, signOut } from "next-auth/react"
 import { CurrencyType, OrganizationType } from '@app/services/types';
 
+/**
+ * TODO:
+ * This session provider can't return organization data
+ * We need to think in a way to solve it
+ * 
+ * Maybe just return user, and component should get organization from that
+ */
+
 interface ProviderProps extends ComponentProps {
   session: Session | null;
 }

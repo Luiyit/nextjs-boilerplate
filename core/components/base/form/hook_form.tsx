@@ -36,7 +36,7 @@ export default function HookForm<InputData extends FieldValues>({ children, onSu
     const keys = Object.keys(error);
     if(!!keys.length){
       for (const key of keys) {
-        // TODO: Set multiples errors. Watch: https://www.react-hook-form.com/api/useform/seterror/
+        // *INFO: Set multiples errors. Watch: https://www.react-hook-form.com/api/useform/seterror/
         methods.setError(
           key as Path<InputData>, 
           { type: 'manual', message: error[key].join(', ') }

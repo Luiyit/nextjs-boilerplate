@@ -1,12 +1,12 @@
 import React, { FC, useContext, useMemo, useState } from 'react';
 
 import { ComponentProps } from '@interfaces/util'
-import { ConfigProvider, GlobalToken } from 'antd'
-import antdTheme from '@app/config/antd_theme'
+import { ConfigProvider, GlobalToken, ThemeConfig } from 'antd'
 import { theme } from 'antd'
 const { defaultAlgorithm, darkAlgorithm, useToken } = theme;
 import { getStorage } from '@core/helpers/storage'
 const CORE_THEME_STORAGE_KEY = 'core-theme'
+
 // Provider value type
 export type ProviderValue = {
   dark: boolean;
@@ -41,9 +41,10 @@ const InternalThemeProvider = ({ children, dark, setDark }: Props ) => {
 
 interface AntdThemeProviderProps extends ComponentProps {
   disableDarkMode?: boolean;
+  theme?: ThemeConfig
 }
 
-const AntdThemeProvider: FC<AntdThemeProviderProps> = ({ children, disableDarkMode }) => {
+const AntdThemeProvider: FC<AntdThemeProviderProps> = ({ children, disableDarkMode, theme }) => {
   const storage = useMemo(() => getStorage(), [])
   const [dark, setDark] = useState(storage.getItem(CORE_THEME_STORAGE_KEY) === 'dark')
   const darkTheme = dark && !disableDarkMode
@@ -56,7 +57,7 @@ const AntdThemeProvider: FC<AntdThemeProviderProps> = ({ children, disableDarkMo
   return (
     <ConfigProvider
       theme={{
-        ...antdTheme,
+        ...theme,
         algorithm: darkTheme ? darkAlgorithm : defaultAlgorithm,
       }}
     >

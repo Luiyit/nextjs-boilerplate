@@ -45,7 +45,6 @@ const InfinityScroll: React.FC<InfinityScrollProps> = ({ pagination, loading, se
     overflowX: 'hidden'
   } || {};
 
-  // TODO: FInish pagination
   return (
     <Div ref={scrollRef} {...containerStyle}>
       { children }

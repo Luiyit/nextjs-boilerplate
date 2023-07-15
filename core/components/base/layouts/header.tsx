@@ -13,9 +13,8 @@ import { MenuType } from '@core/types/menu';
 import Container from '@styled_comps/container'
 import { useTheme } from '@core/providers/theme';
 import hexToRgba from 'hex-to-rgba';
-import SignUpForm from '@app_comps/forms/auth/sign_up_form';
-import ForgotPasswordForm from '@app_comps/forms/auth/forgot_password';
 import { HeaderConfigI } from '@root/core/types/global_config';
+import { useCoreConfig } from '@core/providers/config'
 
 interface HeaderProps extends ComponentProps{
   menuItems?: MenuType[],
@@ -35,6 +34,8 @@ const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, menuTheme,
 
   const { dark } = useTheme();
   const darkTheme = dark && !config.disableDarkMode
+
+  const { auth } = useCoreConfig()
 
   const listenScrollEvent = () => {
 
@@ -91,9 +92,7 @@ const Header: React.FC<HeaderProps> = ({ menuItems, profileMenuItems, menuTheme,
                 size: "small",
                 shape: 'round',
                 style: {height: "35px", width: "120px"}
-              }} 
-              signupForm={SignUpForm}
-              forgotPasswordForm={ForgotPasswordForm}
+              }}
             />
           </Div>
         </Div>

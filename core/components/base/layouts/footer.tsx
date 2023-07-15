@@ -12,7 +12,6 @@ interface FooterProps extends ComponentProps{
   config: FooterBarI;
 }
 
-// TODO: Rename to FooterBar
 const Footer: React.FC<FooterProps> = ({ children, useContainer, className, config }) => {
   const HeaderContainer = useContainer ? Container : Div;
 
