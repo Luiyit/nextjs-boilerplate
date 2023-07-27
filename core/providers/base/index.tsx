@@ -8,13 +8,14 @@ import { ThemeConfig } from 'antd';
 
 interface Props extends ComponentProps {
   config?: CoreConfig | undefined | null;
-  theme?: ThemeConfig
+  theme?: ThemeConfig,
+  disableDarkMode?: boolean
 }
 
-const BaseCoreProviders: FC<Props> = ({ children, config, theme }) => {
+const BaseCoreProviders: FC<Props> = ({ children, config, theme, disableDarkMode }) => {
   return (
     <ConfigProvider config={config} >
-      <ThemeProvider theme={theme}>
+      <ThemeProvider {...{ theme, disableDarkMode }}>
         <NotifierProvider>
           { children }
         </NotifierProvider>

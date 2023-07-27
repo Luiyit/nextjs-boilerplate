@@ -9,7 +9,7 @@ export type ComponentProps = {
   className?: string;
 }
 
-export type LayoutType = 'sider' | 'main' | 'auth'
+export type LayoutType = 'sider' | 'main' | 'auth' | 'none'
 
 export type SubmitEvent = React.BaseSyntheticEvent<object, any, any>
 

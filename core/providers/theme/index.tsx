@@ -54,6 +54,8 @@ const AntdThemeProvider: FC<AntdThemeProviderProps> = ({ children, disableDarkMo
     setDark(dark)
   }
 
+  console.log("dark: ", dark)
+
   return (
     <ConfigProvider
       theme={{
