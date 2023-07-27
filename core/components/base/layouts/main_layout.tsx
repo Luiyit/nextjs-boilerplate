@@ -31,8 +31,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, headerMenu, profileMe
   const { mainLayout } = config
   const { header, footerBar } = mainLayout
 
-  const menuItems = generateMenu(headerMenu, user);
-  const profileMenuItems = generateMenu(profileMenu, user);
+  const menuItems = generateMenu(headerMenu, user, "main");
+  const profileMenuItems = generateMenu(profileMenu, user, "main");
   const { logo, favIcon} = getBrandAssets("main", dark, config)
   
   return (

@@ -14,4 +14,4 @@ export interface CoreMenuItemGroupType extends MenuItemGroupType{}
 export interface CoreMenuDividerType extends MenuDividerType{}
 
 export type MenuType = CoreMenuItemType | CoreSubMenuType | CoreMenuItemGroupType | CoreMenuDividerType;
-export type MenuGeneratorType = ((session: Session["user"] | null) => MenuType[])
+export type MenuGeneratorType = ((session: Session["user"] | null, layout: LayoutType) => MenuType[])

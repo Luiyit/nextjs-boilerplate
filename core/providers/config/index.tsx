@@ -12,6 +12,7 @@ interface Props extends ComponentProps {
 }
 
 const ConfigProvider: FC<Props> = ({ children, config }) => {
+  console.log(generateConfig(config))
   const [state, setState] = useState<ProviderValueI>(generateConfig(config));
 
   useOnChange(() => {

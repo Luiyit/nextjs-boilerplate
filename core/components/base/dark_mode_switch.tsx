@@ -9,13 +9,11 @@ const DarkModeSwitch = () => {
   const { dark, setDark } = useTheme();
 
   return (
-    <>
+    <div className="theme-mode-switch" onClick={() => setDark(!dark)}>
       {dark && <FontAwesomeIcon icon={faSun} style={{marginInlineEnd: "8px"}}/>}
       {!dark && <FontAwesomeIcon icon={faMoon} style={{marginInlineEnd: "8px"}}/>}
-      <span onClick={() => setDark(!dark)}>
-        {dark ? 'Light': 'Dark'} Mode
-      </span>
-    </>
+      {dark ? 'Light': 'Dark'} Mode
+    </div>
   )
 }
 

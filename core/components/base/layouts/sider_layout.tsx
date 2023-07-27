@@ -32,10 +32,10 @@ const SiderLayout: React.FC<SiderLayoutProps> = ({ children, siderMenu, headerMe
   const config = useCoreConfig()
   const { header, footerBar, template, sidebar } = config.siderLayout
   const useFullSider = template === 'full-sider'
-
-  const siderMenuItems = generateMenu(siderMenu, user);
-  const headerMenuItems = generateMenu(headerMenu, user);
-  const profileMenuItems = generateMenu(profileMenu, user);
+  
+  const siderMenuItems = generateMenu(siderMenu, user, "sider");
+  const headerMenuItems = generateMenu(headerMenu, user, "sider");
+  const profileMenuItems = generateMenu(profileMenu, user, "sider");
   
   const { logo, favIcon} = getBrandAssets("sider", dark, config)
 

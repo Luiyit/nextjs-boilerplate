@@ -1,8 +1,9 @@
-import { MenuType, MenuGeneratorType, CoreMenuItemType, CoreSubMenuType } from "@core/types/menu";
+import { MenuType, MenuGeneratorType, CoreSubMenuType } from "@core/types/menu";
 import { Session } from 'next-auth';
 import Link from 'next/link'
 import * as antdIcons from '@ant-design/icons';
 import { IHash } from "@core/types/util";
+import { LayoutType } from '@interfaces/util';
 
 const getIcon = (icon: string | undefined | null) => {
 
@@ -33,12 +34,12 @@ function transformItems(menu: MenuType[]): MenuType[] {
   });
 }
 
-function generateMenu(menu: MenuType[] | MenuGeneratorType | undefined, user: Session["user"] | null): MenuType[]{
+function generateMenu(menu: MenuType[] | MenuGeneratorType | undefined, user: Session["user"] | null, layout: LayoutType): MenuType[]{
 
   if(!menu) return [];
 
   let menuItems: MenuType[] = []
-  if(typeof menu === 'function') menuItems = menu(user);
+  if(typeof menu === 'function') menuItems = menu(user, layout);
   else menuItems = menu;
   
   return transformItems(menuItems);

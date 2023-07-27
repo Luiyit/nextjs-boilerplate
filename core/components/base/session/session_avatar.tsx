@@ -26,7 +26,12 @@ const Avatar = ({ disabled, size = 35, displayName=true, menuItems }: Props) => 
   const imageUrl = currentUser.imageUrl?.(user) || user.image
 
   return (
-    <AvatarContainer menu={{ items: menuItems, style: { fontSize: "14px"} }} disabled={disabled}>
+    <AvatarContainer 
+      className="ant-avatar-dropdown"
+      overlayClassName="ant-avatar-dropdown-overlay"
+      menu={{ items: menuItems, style: { fontSize: "14px"} }} 
+      disabled={disabled}
+    >
       <Flex onClick={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()} alignItems="center" >
         {displayName && <Text padding='0 5px'>{ user.name || emailName }</Text>}
         {imageUrl && <AntAvatar size={size} src={<Image src={imageUrl} alt="avatar" width={size as number} height={size as number} />} /> }

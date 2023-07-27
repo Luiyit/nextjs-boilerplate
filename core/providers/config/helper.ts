@@ -71,7 +71,7 @@ function getHeaderConfig(header: Partial<HeaderConfigI> | undefined): HeaderConf
     heightInPx: numberToPixels(headerHeight),
     useContainer: true,
     useContainerOnSider: false,
-    disableDarkMode: true,
+    disableDarkMode: false,
     fixed,
     ...restHeader,
   } as HeaderConfigI

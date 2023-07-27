@@ -36,6 +36,7 @@ export interface HeaderConfigI {
   height: number,
   heightInPx: string,
   useContainer: boolean,
+  // Dev Note: Won't have effect if you are using fixed header
   disableDarkMode: boolean,  
   fixed?: FixedHeaderConfigI,
 }
